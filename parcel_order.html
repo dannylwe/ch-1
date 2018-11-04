@@ -2,17 +2,22 @@
 <html>
 <head>
 	<title>Welcome!</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 <body>
 	<div class="user-dash" id="usr-dash">
 		<h2>Parcel Details</h2>
 		<form action="parcel_confirm.html">
 			<label>Height</label>
+			
 			<input type="text" name="p-height">
 			<label>Widith</label>
+			
 			<input type="text" name="p-widith">
 			<br>
 			<label>Nickname</label>
+			
 			<input type="text" name="p-nic">
 			<br>
 			<div class="dest">
@@ -25,7 +30,11 @@
 				<div class="check-parcel">
 					<span><i>or drop at nearest sendIT location</i><input type="checkbox" name="p-check"></span>
 				</div>
-				<input type="submit" name="p-submit" value="submit">
+				
+				<div="p-log-btn" id="sub-tt">
+					<input type="submit" name="p-submit" value="submit" class="button-btn">
+				</div>
+				
 			</div>
 			
 		</form>

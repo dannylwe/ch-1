@@ -3,7 +3,21 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url(courier.jpg)
+    font-size: medium;
+}
+
+input[type=email], input[type=password], input[type=text] {
+    border: none;
+    border-bottom: 2px solid rgb(245, 111, 22);
+    line-height: 2em;
+}
+
+input[type=email]:focus, input[type=password]:focus {
+    border: none;
+    border-bottom: 2px solid rgb(8, 3, 0);
+    line-height: 2em;
+    -webkit-transition: 0.75s;
+    transition: 0.75s;
 }
 
 .welcome {
@@ -14,7 +28,7 @@ body {
 
 }
 
-.log-sign {
+.log-sign, .login, .user-dash {
     position: fixed;
     margin-top: 120px;
     margin-left: 600px;
@@ -33,5 +47,14 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-
+    padding-top: 5px;
 }
+
+.submit-log {
+    margin-top: 10px;
+}
+
+.log-email, .dest {
+    padding-bottom: 10px;
+}
+
