@@ -4,7 +4,7 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: medium;
-    background-color: rgb(231, 255, 255);
+    background-color: rgb(255, 255, 255);
 
 }
 
@@ -12,6 +12,7 @@ input[type=email], input[type=password], input[type=text] {
     border: none;
     border-bottom: 2px solid rgb(245, 111, 22);
     line-height: 2em;
+    border-radius: 2px;
 }
 
 input[type=email]:focus, input[type=password]:focus {
@@ -60,4 +61,16 @@ input[type=email]:focus, input[type=password]:focus {
 .log-email, .dest {
     padding-bottom: 10px;
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
 
