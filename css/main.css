@@ -4,6 +4,8 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: medium;
+    background-color: rgb(231, 255, 255);
+
 }
 
 input[type=email], input[type=password], input[type=text] {
@@ -28,17 +30,17 @@ input[type=email]:focus, input[type=password]:focus {
 
 }
 
-.log-sign, .login, .user-dash {
+.log-sign, .login, .user-dash, #conf-dest, .sign-up {
     position: fixed;
     margin-top: 120px;
     margin-left: 600px;
 }
 
-.btn-btn{
+.btn-btn {
     margin-right: 10px;
 }
 
-.button-btn {
+.button-btn, .btn-submit-confirm {
     background-color: rgb(245, 111, 22);
     border: none;
     color: black;
@@ -48,9 +50,10 @@ input[type=email]:focus, input[type=password]:focus {
     display: inline-block;
     font-size: 16px;
     padding-top: 5px;
+
 }
 
-.submit-log {
+.submit-log, .btm-confirm, #btn-signup {
     margin-top: 10px;
 }
 
