@@ -1,43 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome!</title>
+	<title>Parcel Order</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 <body>
 	<div class="user-dash" id="usr-dash">
-		<h2>Parcel Details</h2>
-		<form action="parcel_confirm.html">
-			<label>Height</label>
-			
-			<input type="text" name="p-height">
-			<label>Widith</label>
-			
-			<input type="text" name="p-widith">
-			<br>
-			<label>Nickname</label>
-			
-			<input type="text" name="p-nic">
-			<br>
-			<div class="dest">
-				<label>Destination</label>
-				<input type="text" name="p-destination">
-				<br>
-				<label>Pickup location</label>
-				<input type="text" name="p-pickup">
-				
-				<div class="check-parcel">
-					<span><i>or drop at nearest sendIT location</i><input type="checkbox" name="p-check"></span>
+		<table>
+			<tr><h2>Parcel Details</h2></tr> 
+			<form action="parcel_confirm.html" class="parcel-confirm">
+				<tr><td><label>Height</label></td><td><input type="text" name="p-height" placeholder="height"></td></tr>
+				<tr><td><label>Widith</label></td><td><input type="text" name="p-widith" placeholder="Widith"></td></tr>
+				<tr><td><label>Nickname</label></td><td><input type="text" name="p-nic" placeholder="package Nickname"></td></tr>   
+				<tr><td><label>Destination</label></td><td><input type="text" name="p-destination" placeholder="dest. of package"></td></tr>
+				<tr><td><label>Pickup location</label></td><td><input type="text" name="p-pickup" placeholder="pickup location"></td></tr>   
+				<tr><td><span><i>or drop at nearest sendIT location</i><input type="checkbox" name="p-check"></span></td></tr>
+				<tr><td><input type="submit" name="p-submit" value="submit" class="button-btn"></td></tr>
+					
 				</div>
 				
-				<div="p-log-btn" id="sub-tt">
-					<input type="submit" name="p-submit" value="submit" class="button-btn">
-				</div>
-				
-			</div>
-			
-		</form>
+			</form>
+		</table>
 		
 	</div>
 
