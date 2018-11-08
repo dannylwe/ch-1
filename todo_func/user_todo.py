@@ -14,7 +14,7 @@ def create_todolist(username, todolist_name):
 
 		todo = {
 		"username": username,
-		"todolist_name": todolist_name,
+		"todolist_name": todo_name,
 		}
 
 		return todo_name
