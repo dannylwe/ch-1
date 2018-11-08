@@ -51,11 +51,3 @@ for dog in a_pet.dogs:
 print("And they are all {} of course").format(dog.species)
 print("My dogs are not hungry")
 
-
-
-
-
-
-
-
-#print(Dog.mammals)
