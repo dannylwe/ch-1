@@ -41,3 +41,8 @@ def remove_all_tasks(todolist_name):
 def get_user_tasks(user_name, no_of_tasks):
 	if user_name in todo['username']:
 		return len(todo['todolist_name'])
+
+def get_user_tasks(user_name, task_no):
+	if user_name in todo['username']:
+		find_list= todo['todolist_name']
+		return find_list[task_no]
