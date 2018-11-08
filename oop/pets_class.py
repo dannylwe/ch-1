@@ -21,8 +21,6 @@ class Dog:
 
 class Pets:
 
-	dogs = []
-
 	def __init__(self, dogs):
 		self.dogs= dogs
 
@@ -47,7 +45,11 @@ print("$$$")
 for dog in a_pet.dogs:
 	print(dog.name + " is " + str(dog.age))
 	dog.eat()
+	if not dog.is_hungry:
+		continue
+
 print("And they are all {} of course").format(dog.species)
+print("My dogs are not hungry")
 
 
 
