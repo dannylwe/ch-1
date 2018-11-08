@@ -20,8 +20,8 @@ def create_todolist(username, todolist_name):
 		return todo_name
 
 def create_task(user_name, todolist_name, task_description):
-	create_user(username)
-	create_todolist(username, todolist_name)
+	create_user(user_name)
+	create_todolist(user_name, todolist_name)
 	todo_name.append(task_description)
 	return
 
