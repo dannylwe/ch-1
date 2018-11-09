@@ -1,10 +1,10 @@
 from flask import Flask, abort, request, jsonify
 from flask_restplus import Api, Resource, fields, abort
 from werkzeug.contrib.fixers import ProxyFix
-import uuid
+#import uuid
 
 app = Flask(__name__)
-#app.wsgi_app = ProxyFix(app.wsgi_app)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 api = Api(app, version='1.0', title='sendIT api',
     description='sendIT MVC api',
 )
@@ -28,7 +28,7 @@ parcels = []
 class Parcel:
 
 	parcel_status = 'pending'
-	uq = uuid.uuid4()
+	#uq = uuid.uuid4()
 
 	def __init__(self, nickname, height, width, destination, pickup):
 		self.nickname = nickname
@@ -45,23 +45,26 @@ class Parcel:
 		post = payload
 		post['id'] = parcels[-1]['id'] + 1 if len(parcels) > 0 else 0
 		post['status'] = Parcel.parcel_status
-		post['uuid'] = Parcel.uq
+		#post['uuid'] = Parcel.uq
 		parcels.append(post)
 		return parcels
 
 	@classmethod
-	def update(self, id, payload):
+	def updates(self, id, payload):
 		# post = payload
 		# if post['id'] != parcels['id']:
 		# 	return {"item": "not found"}
 		# post.update(payload)
 		# return parcels
-		data = payload
-		for new_post in parcels:
-			if data['id'] not in new_post['id']:
-				raise ValueError('Invalid search') 
-			new_post.update(data)
-			return parcels
+		# data = payload
+		# for new_post in parcels:
+		# 	if data['id'] not in new_post['id']:
+		# 		raise ValueError('Invalid search') 
+		# 	new_post.update(data)
+		# 	return parcels
+		result = [prod for prod in parcels if prod['id'] == id]
+		final = result.update()
+
 
 	@classmethod
 	def get_by_id(self, id):
@@ -102,59 +105,57 @@ class Parcel_info(Resource):
 
 		return {"created": post}, 201
 
-@api.route(base_url + '/parcel/<int:id>')
+	@api.expect(a_parcel, Validate=True)
+	def put(self):
+
+		"Place entire parcel"
+
+		post = api.payload
+		Parcel.create(post)
+
+		return {"accepted": post}, 202
+
+@api.route(base_url + '/parcel/<string:id>')
 class Parcel_by_id(Resource):
 	def get(self, id):
 
 		"get by id"
 
 		result = Parcel.get_by_id(id)
-		
-		return result
 
-# @api.route(base_url + '/parcel/<int:id>')
-# class Update_one_parcel(Resource):
+		if result == []:
+			return {"message": "nothing here"}, 
 
-# 	@api.expect(a_parcel, Validate=True)
-# 	def put(self):
-
-# 		"update parcel information"
-		
-# 		post = api.payload
-# 		Parcel.update(post)
-
-# 		return {"updated": post}, 201
+		return result, 200
 
 @app.route(base_url + '/parcel/<int:parcel_id>', methods=['PUT'])
 def update_parcel(parcel_id):
-	def put(Resource):
 
-		"update parcel by id"
 
-		if not parcel_id or parcel_id < 1:
-			abort(400, 'Bad request')
+	if not parcel_id or parcel_id < 1:
+		abort(400, 'Bad request')
 
-		data = request.get_json()
+	data = request.get_json()
 
-		nickname = data['nickname'],
-		height = data['height'],
-		width= data['width'], 
-		destination = data['destination'],
-		pickup = data['pickup']
+	nickname = data['nickname'],
+	height = data['height'],
+	width= data['width'], 
+	destination = data['destination'],
+	pickup = data['pickup']
 
-		new_update = dict(nickname= nickname,
-			height= height,
-			width =width,
-			destination= destination,
-			pickup=pickup)
+	new_update = dict(nickname= nickname,
+		height= height,
+		width =width,
+		destination= destination,
+		pickup=pickup)
 
-		for parcel in parcels:
-			if parcel['parcel_id'] == parcels['id']:
-				parcels.append(new_update)
+	for parcel in parcels:
+		if parcel['parcel_id'] == parcels['id']:
+			parcels.append(new_update)
 
-				return jsonify({"message": "updated"}), 202
+			return jsonify({"message": "updated"}), 202
 
-			return jsonify({"message": "parcel not found"}), 200
+		return jsonify({"message": "parcel not found"}), 200
 
 
 
