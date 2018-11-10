@@ -1,12 +1,14 @@
+
+
 from flask import Flask, abort, request, jsonify, abort
 #from werkzeug.contrib.fixers import ProxyFix
 #import uuid
-
 app = Flask(__name__)
-#app.wsgi_app = ProxyFix(app.wsgi_app)
-base_url= '/api/v1'
 
 app.config['DEBUG'] = True
+
+#app.wsgi_app = ProxyFix(app.wsgi_app)
+base_url= '/api/v1'
 
 parcels = []
 
@@ -70,7 +72,7 @@ def gets_by_id(id):
 
 	if request.method == 'GET':
 		if type(id) != int:
-			abort(400, 'Bad request')
+			abort(400, 'No string literal allowed')
 
 		result = [prod for prod in parcels if prod['id'] == id]
 		if result == []:
@@ -79,7 +81,7 @@ def gets_by_id(id):
 		return jsonify({"message": result}), 200
 
 
-@app.route(base_url + '/users/<int:user_id>', methods=['GET'])
+@app.route(base_url + '/users/<int:user_id>/parcels', methods=['GET'])
 def get_from_user(user_id):
 	if user_id < 1:
 		abort(400, 'Bad user request')
