@@ -1,9 +1,9 @@
-
-
 from flask import Flask, abort, request, jsonify, abort
 #from werkzeug.contrib.fixers import ProxyFix
 #import uuid
+
 app = Flask(__name__)
+CORS(app)
 
 app.config['DEBUG'] = True
 
@@ -89,11 +89,6 @@ def get_from_user(user_id):
 	if type(user_id) != int:
 		abort(400, 'Bad request')
 
-	# result = [prod for prod in parcels if prod['user_id'] == user_id]
-	# if result == []:
-	# 	return jsonify({"message": "nothing here"}), 204
-
-	# return jsonify({"message": result}), 200
 	result = []
 	for users in parcels:
 		if users['user_id'] == user_id:
