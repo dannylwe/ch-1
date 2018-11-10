@@ -78,17 +78,6 @@ def gets_by_id(id):
 
 		return jsonify({"message": result}), 200
 
-	# if request.method == 'PUT':
-
-	# 	if not id or id < 1:
-	# 		abort(400, 'Bad parcel request')
-
-	# 	update_parcel_by_id = request.get_json()
-	# 	for item in parcels:
-	# 		if update_parcel_by_id['id'] == item['id']:
-	# 			parcels.update(update_parcel_by_id)
-
-	# return jsonify({"updated": update_parcel_by_id}), 201
 
 @app.route(base_url + '/users/<int:user_id>', methods=['GET'])
 def get_from_user(user_id):
@@ -109,8 +98,8 @@ def get_from_user(user_id):
 			result.append(users)
 		else: 
 			if result == []:
-				abort(400, 'Bad user request')
-				
+				abort(400, 'No such user')
+
 	return jsonify({"message": result})
 
 
