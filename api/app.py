@@ -71,9 +71,6 @@ class Parcel:
 		result = [prod for prod in parcels if prod['id'] == id]
 		return result
 
-
-
-
 @api.route(base_url + '/hello')
 class HelloWorld(Resource):
 
@@ -115,18 +112,19 @@ class Parcel_info(Resource):
 
 		return {"accepted": post}, 202
 
-@api.route(base_url + '/parcel/<string:id>')
+@api.route(base_url + '/parcel/<int:id>')
 class Parcel_by_id(Resource):
 	def get(self, id):
 
 		"get by id"
 
-		result = Parcel.get_by_id(id)
+		result = [prod for prod in parcels if prod['id'] == id]
 
 		if result == []:
-			return {"message": "nothing here"}, 
+			return {"message": "nothing here"}, 204
 
 		return result, 200
+
 
 @app.route(base_url + '/parcel/<int:parcel_id>', methods=['PUT'])
 def update_parcel(parcel_id):
