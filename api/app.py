@@ -36,6 +36,7 @@ class Parcel:
 		self.width = width
 		self.destination = destination
 		self.pickup = pickup
+		#self.parcels= []
 
 	def gets(self):
 		return parcels
@@ -92,7 +93,7 @@ class Parcel_info(Resource):
 
 		return parcels, 200
 
-	@api.expect(a_parcel, Validate=True)
+	@api.expect(a_parcel, validate=True)
 	def post(self):
 
 		"post parcel information"
@@ -102,7 +103,7 @@ class Parcel_info(Resource):
 
 		return {"created": post}, 201
 
-	@api.expect(a_parcel, Validate=True)
+	@api.expect(a_parcel, validate=True)
 	def put(self):
 
 		"Place entire parcel"
