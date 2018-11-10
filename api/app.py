@@ -69,7 +69,7 @@ def get_parcel():
 def gets_by_id():
 
 	if request.method == 'GET':
-		if type(id) != Int:
+		if type(id) != int:
 			abort(400, 'Bad request')
 
 		result = [prod for prod in parcels if prod['id'] == id]
@@ -90,12 +90,12 @@ def gets_by_id():
 
 	return jsonify({"updated": update_parcel_by_id}), 201
 
-@app.route(base_url + '/users/<int:user_id>', methods=['GET'])
+@app.route(base_url + '/users/<int:user_id>/parcels', methods=['GET'])
 def get_from_user():
 	if not user_id or user_id < 1:
 		abort(400, 'Bad user request')
-		
-	if type(user_id) != Int:
+
+	if type(user_id) != int:
 		abort(400, 'Bad request')
 
 		result = [prod for prod in parcels if prod['user_id'] == user_id]
