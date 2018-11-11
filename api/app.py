@@ -3,6 +3,7 @@ from flask_cors import CORS
 from werkzeug.contrib.fixers import ProxyFix
 import datetime
 #import uuid
+from parcel_store import *
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -11,8 +12,6 @@ app.config['DEBUG'] = True
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
 base_url= '/api/v1'
-
-parcels = []
 
 class Parcel:
 
@@ -70,7 +69,9 @@ def get_parcel():
 
 	if request.method == 'POST':
 		post_parcel = request.get_json()
-		Parcel.create(post_parcel)
+		#Parcel.create(post_parcel)
+
+		create(post_parcel)
 
 		return jsonify({"created": post_parcel}), 201
 
