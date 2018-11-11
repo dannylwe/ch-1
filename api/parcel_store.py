@@ -1,4 +1,5 @@
 import datetime
+from marshmallow import Schema, fields, pprint
 
 parcels = []
 
@@ -12,11 +13,15 @@ class Parcel:
 		self.width = width
 		self.destination = destination
 		self.pickup = pickup
+		self.time = datetime.datetime.now()
 		
 
 	def __repr__(self):
 		return 'Initialized parcel object {} with {} pickup location and destination {}'.format(self.nickname,
 			self.pickup, self.destination)
+
+class ParcelSchema(Schema):
+	pass
 
 
 def create(payload):
