@@ -13,33 +13,6 @@ app.config['DEBUG'] = True
 app.wsgi_app = ProxyFix(app.wsgi_app)
 base_url= '/api/v1'
 
-class Parcel:
-
-	parcel_status = 'pending'
-	#uq = uuid.uuid4()
-
-	def __init__(self, nickname, height, width, destination, pickup):
-		self.nickname = nickname
-		self.height = height
-		self.width = width
-		self.destination = destination
-		self.pickup = pickup
-		#self.orders = []
-
-	def gets(self):
-		return parcels
-
-	@classmethod
-	def creates(self, payload):
-		post = payload
-		post['id'] = parcels[-1]['id'] + 1 if len(parcels) > 0 else 100
-		post['status'] = Parcel.parcel_status
-		post['user_id'] = 1
-		post['created_at'] = datetime.datetime.now()
-		#post['uuid'] = Parcel.uq
-		parcels.append(post)
-		return parcels
-
 @app.route(base_url + '/hello')
 def hello_world():
 	return jsonify({'hello': 'world'}), 200
@@ -83,12 +56,15 @@ def get_from_user(user_id):
 		abort(400, 'Bad request')
 
 	result = []
+	if result == []:
+		abort(404, 'No such user')
+
 	for users in parcels:
 		if users['user_id'] == user_id:
 			result.append(users)
-		else: 
-			if result == []:
-				abort(400, 'No such user')
+		# else: 
+		# 	if result == []:
+		# 		abort(400, 'No such user')
 
 	return jsonify({"message": result})
 
