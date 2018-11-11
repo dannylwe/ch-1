@@ -1,11 +1,11 @@
 from unittest import TestCase
 import json
-import app
+from views.app import app
 
 class Test(TestCase):
 
 	def setUp(self):
-		self.app = app.app.test_client()  
+		self.app = app.test_client()  
 
 	def test_hello_world(self):
 		response = self.app.get('/api/v1/hello')
