@@ -1,13 +1,15 @@
 from flask import Flask, abort, request, jsonify, abort
-#from werkzeug.contrib.fixers import ProxyFix
+from flask_cors import CORS
+from werkzeug.contrib.fixers import ProxyFix
+import datetime
 #import uuid
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 
 app.config['DEBUG'] = True
 
-#app.wsgi_app = ProxyFix(app.wsgi_app)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 base_url= '/api/v1'
 
 parcels = []
@@ -23,6 +25,7 @@ class Parcel:
 		self.width = width
 		self.destination = destination
 		self.pickup = pickup
+		#self.orders = []
 
 	def gets(self):
 		return parcels
@@ -33,6 +36,7 @@ class Parcel:
 		post['id'] = parcels[-1]['id'] + 1 if len(parcels) > 0 else 100
 		post['status'] = Parcel.parcel_status
 		post['user_id'] = 1
+		post['created_at'] = datetime.datetime.now()
 		#post['uuid'] = Parcel.uq
 		parcels.append(post)
 		return parcels
@@ -48,6 +52,9 @@ class Parcel:
 	# def get_by_id(self, id):
 	# 	result = [prod for prod in parcels if prod['id'] == id]
 	# 	return result
+
+# parcelDAO = Parcel()
+# parcelDAO.create()
 
 @app.route(base_url + '/hello')
 def hello_world():

@@ -9,11 +9,13 @@ itsdangerous==1.1.0
 Jinja2==2.10
 jsonschema==2.6.0
 MarkupSafe==1.1.0
+marshmallow==2.16.3
 more-itertools==4.3.0
 pathlib2==2.3.2
 pluggy==0.8.0
 py==1.7.0
 pytest==3.10.0
+python-dateutil==2.7.5
 pytz==2018.7
 six==1.11.0
 Werkzeug==0.14.1
