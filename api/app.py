@@ -40,21 +40,6 @@ class Parcel:
 		parcels.append(post)
 		return parcels
 
-	# @classmethod
-	# def updates(self, id, payload):
-	
-	# 	result = [prod for prod in parcels if prod['id'] == id]
-	# 	final = result.update()
-
-
-	# @classmethod
-	# def get_by_id(self, id):
-	# 	result = [prod for prod in parcels if prod['id'] == id]
-	# 	return result
-
-# parcelDAO = Parcel()
-# parcelDAO.create()
-
 @app.route(base_url + '/hello')
 def hello_world():
 	return jsonify({'hello': 'world'}), 200
