@@ -39,7 +39,7 @@ def create(payload):
 	schema = ParcelSchema()
 	parcel_DTO = schema.dump(parcel_obj)
 	parcel_result= parcel_DTO.data
-	#print(parcel_DTO.errors)
+	print(parcel_DTO.errors)
 
 	post['id'] = parcels[-1]['id'] + 1 if len(parcels) > 0 else 100
 	post['status'] = Parcel.parcel_status

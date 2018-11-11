@@ -3,7 +3,7 @@ from flask_cors import CORS
 from werkzeug.contrib.fixers import ProxyFix
 import datetime
 #import uuid
-from parcel_store import *
+from api.parcel_store import *
 
 app = Flask(__name__)
 cors = CORS(app)
