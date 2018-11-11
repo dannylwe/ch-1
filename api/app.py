@@ -30,7 +30,7 @@ class Parcel:
 		return parcels
 
 	@classmethod
-	def create(self, payload):
+	def creates(self, payload):
 		post = payload
 		post['id'] = parcels[-1]['id'] + 1 if len(parcels) > 0 else 100
 		post['status'] = Parcel.parcel_status
