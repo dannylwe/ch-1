@@ -49,24 +49,3 @@ def create(payload):
 
 	parcels.append(parcel_result)
 	return parcels
-
-# parcel_result = Parcel('mums flowers', 11, 14, 'kampala', 'mbarara')
-# # print(parcel_result)
-# # parcel_result = parcel_result.__dict__
-# # #parcel_result['time'] = datetime.datetime.now()
-# # print(parcel_result)
-
-# schema = ParcelSchema()
-# result = schema.dump(parcel_result)
-# result = result.data
-# # print(result)
-# # result['time'] = datetime.datetime.now()
-# pprint(result)
-
-# class Parcel_Store:
-
-# 	parcels = []
-
-
-# 	@classmethod
-# 	def 
