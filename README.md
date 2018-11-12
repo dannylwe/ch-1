@@ -1,4 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/50ce4c572919c06b9a0f/maintainability)](https://codeclimate.com/github/dannylwe/ch-1/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/50ce4c572919c06b9a0f/maintainability)](https://codeclimate.com/github/dannylwe/ch-1/maintainability) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/aff60dffb1ac429e878793705496949e)](https://www.codacy.com/app/dannylwe/ch-1?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dannylwe/ch-1&amp;utm_campaign=Badge_Grade)
 
 # Project
 
