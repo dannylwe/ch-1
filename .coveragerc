@@ -1,0 +1,4 @@
+[omit]
+run.py
+api/views/app.py
+api/models/parcel_store.py
