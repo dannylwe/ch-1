@@ -156,6 +156,7 @@ td .button-icon .fa {
     line-height: 38px;
     font-size: 15px;
     vertical-align: top;
+    padding: 5px;
 }
 
 .fa {
@@ -184,4 +185,26 @@ a.button-icon {
     border: 1px solid #bbb;
     cursor: pointer;
     box-sizing: border-box;
+}
+
+a.button-icons {
+    display: inline-block;
+    height: 38px;
+    padding: 0 7px;
+    color: #555;
+    text-align: center;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.admin-logout {
+    float: left;
 }

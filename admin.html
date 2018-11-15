@@ -4,9 +4,26 @@
 	<title>Admin-Dashboard</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<h4>todo</h4>
+	<!-- nav bar -->
+	<div class="topnav">
+		<a class="active" href="admin.html">Deliverable</a>
+		<a class="admin-logout" href="login.html">Logout</a>
+	</div>
+	
+	 <!-- table of various items -->
+	 <div class="table-full">
+		<table id="deliver-actions">
+			<tr><th style="width:25%">Parcel ID</th><th>Status</th><th>Date</th><th style="width: 30px;">Actions</th><th style="width: 30px;"></th><th style="width: 30px;"></th></tr>
+			<tr><th>123456</th><th>In-transit</th><th>14-12-2018</th><th><a class="button button-icons"><i class="fas fa-check"></i></a></th><th><a class="button button-icons"><i class="fas fa-times-circle"></i></a></th></tr>
+			<tr><th>1123445</th><th>Pending</th><th>09-12-2018</th><th><a class="button button-icons"><i class="fas fa-check"></i></a></th><th><a class="button button-icons"><i class="fas fa-times-circle"></i></a></th></tr>
+			<tr><th>3634646</th><th>Awaiting pickup</th><th>11-12-2018</th><th><a class="button button-icons"><i class="fas fa-check"></i></i></a></th><th><a class="button button-icons"><i class="fas fa-times-circle"></i></a></th></tr>
+			<tr><th>234256</th><th>Awaiting drop off</th><th>29-12-2018</th><th><a class="button button-icons"><i class="fas fa-check"></i></a></th><th><a class="button button-icons"><i class="fas fa-times-circle"></i></a></th></tr>
+		</table>
+	</div>
 
 
 </body>
