@@ -11,34 +11,52 @@
 	</header>
 
 	<div class="login">
-		<form action="parcel_order.html">
+		<form name="logins">
 			<div class="log-email">
 				<label>Email</label>
 				<br>
-				<input type="email" name="email-login" placeholder="please enter password" required>
+				<input type="email" name="Email" id="eml" placeholder="please enter password" required>
 			</div>
 			
 			<br>
 			<label>Password</label>
 			<br>
-			<input type="password" name="psw-login" placeholder="please enter password">
+			<input type="password" name="psw" id="pass" placeholder="please enter password" required>
 			<br>
 			
 			<div class="submit-log">
-					<input type="submit" name="login-submit" value="Submit" class="button-btn">
+				<input type="button" name="login-submit" value="Submit" class="button-btn" onClick="return validation();">
 			</div>
 			
-		</form>
-
-		
-		
+		</form>	
 	</div>
 
 
-	<footer>
-		
-	</footer>
+	<script>
 
+		function validation() {
+			var Email = document.getElementById("eml").value;
+			var Password = document.getElementById("pass").value;
+
+			if ((Email == "admin@admin.com") && (Password == "admin")) {
+				
+				window.location.href = "loading.html";
+
+			} else if ((Email == "user@user.com") && (Password == "user")) {
+
+				window.location.href = "parcel_order.html";
+
+			} else {
+
+				alert("Incorrect email/password");
+				return false;
+			}
+
+			
+			
+		}
+
+	</script>
 
 </body>
 </html>
