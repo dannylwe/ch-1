@@ -16,10 +16,17 @@ class Test(TestCase):
 		response = self.app.get('/api/v1/parcels')
 		self.assertEqual(response.status_code, 200)
 
-	def test_parcels_with_posts(self):
+	def test_parcels_with_posts_invalid(self):
 		response = self.app.post('/api/v1/parcels', 
 			data = 
 			json.dumps({"height": 5, "pickup":"kampala","nickname": "mum's flowers","weight": 10,"destination": "gulu"}),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 400)
+
+	def test_parcels_with_posts(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 5, "pickup":"kampala","nickname": "mum's flowers","weight": 9,"destination": "gulu"}),
 			content_type="application/json")
 		self.assertEqual(response.status_code, 201)
 
