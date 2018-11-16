@@ -1,5 +1,5 @@
 import datetime
-from marshmallow import Schema, fields, pprint
+from marshmallow import Schema, fields
 
 parcels = []
 
@@ -7,10 +7,10 @@ class Parcel:
 
 	parcel_status = 'pending'
 
-	def __init__(self, nickname, height, width, destination, pickup):
+	def __init__(self, nickname, height, weight, destination, pickup):
 		self.nickname = nickname
 		self.height = height
-		self.width = width
+		self.weight = weight
 		self.destination = destination
 		self.pickup = pickup
 		self.created_at = datetime.datetime.now()
@@ -24,7 +24,7 @@ class ParcelSchema(Schema):
 
 	nickname = fields.Str()
 	height = fields.Int()
-	width = fields.Int()
+	weight = fields.Int()
 	destination = fields.Str()
 	pickup = fields.Str()
 	created_at = fields.DateTime()
@@ -33,7 +33,7 @@ class ParcelSchema(Schema):
 def create(payload):
 
 	post = payload
-	parcel_obj = Parcel(post['nickname'], post['height'], post['width'], post['destination'], post['pickup'])
+	parcel_obj = Parcel(post['nickname'], post['height'], post['weight'], post['destination'], post['pickup'])
 	#pprint(parcel_obj)
 
 	schema = ParcelSchema()

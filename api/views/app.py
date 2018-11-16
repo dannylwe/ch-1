@@ -1,4 +1,4 @@
-from flask import Flask, abort, request, jsonify, abort
+from flask import Flask, abort, request, jsonify, abort, make_response
 from flask_cors import CORS
 from werkzeug.contrib.fixers import ProxyFix
 import datetime
@@ -27,6 +27,12 @@ def get_parcel():
 
 	if request.method == 'POST':
 		post_parcel = request.get_json()
+
+		if post_parcel['weight'] > 9.99:
+			abt_weight = make_response("Too heavy")
+			abt_weight.status_code = 400
+			return abt_weight
+
 		create(post_parcel)
 
 		return jsonify({"created": post_parcel}), 201
@@ -41,7 +47,7 @@ def gets_by_id(id):
 		result = [prod for prod in parcels if prod['id'] == id]
 
 		if result == []:
-			return jsonify({"message": "nothing here"}), 204
+			return jsonify({"message": "nothing here"}), 200
 		return jsonify({"message": result}), 200
 
 
@@ -63,8 +69,14 @@ def get_from_user(user_id):
 			result.append(users)
 	return jsonify({"message": result})
 
+@app.route(base_url + '/parcels/<int:id>/cancel', methods=['PUT'])
+def cancel_order(id):
 
+	if type(id) != int:
+		abort(400, 'Enter a valid integer')
 
-
-
-
+	for parcel in parcels:
+		if parcel['id'] == id:
+			parcel['status'] == "cancelled"
+			return jsonify({"cancelled": parcel}), 201
+	return jsonify({"message": "Id does not exist"}), 200
