@@ -19,7 +19,7 @@ class Test(TestCase):
 	def test_parcels_with_posts(self):
 		response = self.app.post('/api/v1/parcels', 
 			data = 
-			json.dumps({"height": 5, "pickup":"kampala","nickname": "mum's flowers","width": 10,"destination": "gulu"}),
+			json.dumps({"height": 5, "pickup":"kampala","nickname": "mum's flowers","weight": 10,"destination": "gulu"}),
 			content_type="application/json")
 		self.assertEqual(response.status_code, 201)
 
