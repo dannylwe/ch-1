@@ -6,3 +6,16 @@ sendIT
 
 Repo for challenge 2 Andela Level up. 
 
+# Enpoints
+
+Base url = /api/v1
+
+|Request|Route|Desscription|
+|-------|-----|------------|
+|GET    |/hello|sanity check|
+|GET    |/parcels|get all parcels|
+|POST   |/parcels|post a single parcel|
+|GET    |/parcels/{id}|get parcel by id|
+|GET    |/users/{id}/parcels| Get parcels by user id|
+|PUT    |/parcels/{id}/cancel| cancel a single parcel delivery by Id|
+
