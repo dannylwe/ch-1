@@ -56,19 +56,14 @@ def gets_by_id(id):
 @app.route(base_url + '/users/<int:user_id>/parcels', methods=['GET'])
 def get_from_user(user_id):
 
-	if user_id < 1:
-		abort(400, 'Bad user request')
-
-	if type(user_id) != int:
-		abort(400, 'Bad request')
-
 	result = []
-	if result == []:
-		abort(404, 'No such user')
 
 	for users in parcels:
 		if users['user_id'] == user_id:
 			result.append(users)
+
+	if result == []:
+		abort(404, 'No such user')
 	return jsonify({"message": result})
 
 @app.route(base_url + '/parcels/<int:id>/cancel', methods=['PUT'])
@@ -80,6 +75,6 @@ def cancel_order(id):
 
 	for parcel in parcels:
 		if parcel['id'] == id:
-			parcel['status'] == "cancelled"
+			parcel['status'] = "cancelled"
 			return jsonify({"cancelled": parcel}), 201
 	return jsonify({"message": "Id does not exist"}), 200
