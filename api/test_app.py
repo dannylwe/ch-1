@@ -19,14 +19,49 @@ class Test(TestCase):
 	def test_parcels_with_posts_invalid(self):
 		response = self.app.post('/api/v1/parcels', 
 			data = 
-			json.dumps({"height": 5, "pickup":"kampala","nickname": "mum's flowers","weight": 10,"destination": "gulu"}),
+			json.dumps({"height": "5", "pickup":"kampala","nickname": "mum's flowers","weight": 10,"destination": "gulu"}),
 			content_type="application/json")
-		self.assertEqual(response.status_code, 201)
+		self.assertEqual(response.status_code, 400)
+
+	def test_parcels_with_posts_invalid_2(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 2, "pickup": 5,"nickname": "mum's flowers","weight": 10,"destination": "gulu"}),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 400)
+
+	def test_parcels_with_posts_invalid_3(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 2, "pickup": "gulu","nickname": 5,"weight": 10,"destination": "gulu"}),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 400)
+
+	def test_parcels_with_posts_invalid_4(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 2, "pickup": "gulu","nickname": "mums dentist","weight": "10","destination": "gulu"}),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 400)
+
+	def test_parcels_with_posts_invalid_5(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 2, "pickup": "gulu","nickname": "patrick","weight": 10,"destination": 67}),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 400)
+
+	def test_parcels_with_posts_invalid_6(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 2, "pickup": "gulu","nickname": "patrick","weight": 11,"destination": "gulu"}),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 400)
 
 	def test_parcels_with_posts(self):
 		response = self.app.post('/api/v1/parcels', 
 			data = 
-			json.dumps({"height": 5, "pickup":"kampala","nickname": "mum's flowers","weight": 9,"destination": "gulu"}),
+			json.dumps({"height": 10, "pickup":"kampala","nickname": "dental floss","weight": 5,"destination": "gulu"}),
 			content_type="application/json")
 		self.assertEqual(response.status_code, 201)
 

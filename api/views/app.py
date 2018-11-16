@@ -74,9 +74,6 @@ def get_from_user(user_id):
 @app.route(base_url + '/parcels/<int:id>/cancel', methods=['PUT'])
 def cancel_order(id):
 
-	if type(id) != int:
-		abort(400, 'Enter a valid integer')
-
 	post_parcel = request.get_json()
 
 	error_handler(post_parcel)
