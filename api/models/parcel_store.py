@@ -1,5 +1,6 @@
 import datetime
 from marshmallow import Schema, fields
+from flask import abort, jsonify
 
 parcels = []
 
@@ -49,3 +50,13 @@ def create(payload):
 
 	parcels.append(parcel_result)
 	return parcels
+
+def error_handler(payload):
+
+	post_parcel = payload
+
+	if not isinstance(post_parcel['height'], int) or not isinstance(post_parcel['weight'], int):
+		abort(400, "height and weight must be integers")
+	if not isinstance(post_parcel['nickname'], str) or not isinstance(post_parcel['destination'], str) or not isinstance(post_parcel['pickup'], str):
+		abort(400, "nickname, destination must be strings")
+	return

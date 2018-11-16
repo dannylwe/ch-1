@@ -28,7 +28,9 @@ def get_parcel():
 	if request.method == 'POST':
 		post_parcel = request.get_json()
 
-		if post_parcel['weight'] > 9.99:
+		error_handler(post_parcel)
+
+		if post_parcel['weight'] > 10:
 			abt_weight = make_response("Too heavy")
 			abt_weight.status_code = 400
 			return abt_weight
@@ -74,6 +76,10 @@ def cancel_order(id):
 
 	if type(id) != int:
 		abort(400, 'Enter a valid integer')
+
+	post_parcel = request.get_json()
+
+	error_handler(post_parcel)
 
 	for parcel in parcels:
 		if parcel['id'] == id:
