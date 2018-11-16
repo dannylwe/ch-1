@@ -19,3 +19,14 @@ Base url = /api/v1
 |GET    |/users/{id}/parcels| Get parcels by user id|
 |PUT    |/parcels/{id}/cancel| cancel a single parcel delivery by Id|
 
+To use clone repo:
+```
+https://github.com/dannylwe/ch-1
+```
+
+Hosted on: https://fathomless-cove-74404.herokuapp.com
+
+# Author
+
+Daniel Lwetabe
+
