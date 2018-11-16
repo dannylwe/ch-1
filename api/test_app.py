@@ -25,7 +25,7 @@ class Test(TestCase):
 
 	def test_parcels_int(self):
 		response = self.app.get('/api/v1/parcels/1')
-		self.assertEqual(response.status_code, 204)
+		self.assertEqual(response.status_code, 200)
 
 	def test_parcels_by_user(self):
 		response = self.app.get('/users/1/parcels')
