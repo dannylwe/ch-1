@@ -8,8 +8,6 @@ Repo for challenge 2 Andela Level up.
 
 # Enpoints
 
-Base url = /api/v1
-
 |Request|Route|Desscription|
 |-------|-----|------------|
 |GET    |/hello|sanity check|
@@ -24,7 +22,7 @@ To use clone repo:
 https://github.com/dannylwe/ch-1
 ```
 
-Hosted on: https://fathomless-cove-74404.herokuapp.com
+Hosted on: https://still-savannah-64363.herokuapp.com/api/v1
 
 # Author
 
