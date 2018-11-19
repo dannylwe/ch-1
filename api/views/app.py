@@ -4,6 +4,7 @@ from werkzeug.contrib.fixers import ProxyFix
 import datetime
 #import uuid
 from models.parcel_store import *
+from database.dataBase import Database
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -78,3 +79,24 @@ def cancel_order(id):
 			parcel['status'] = "cancelled"
 			return jsonify({"cancelled": parcel}), 201
 	return jsonify({"message": "Id does not exist"}), 200
+
+@app.route(base_url + '/register', methods=['POST'])
+def register_user():
+
+	user_info = request.get_json()
+	db = Database()
+
+	instance_database = """CREATE TABLE IF NOT EXISTS USERS (user_id SERIAL PRIMARY KEY,
+	 email VARCHAR(20), password VARCHAR(20), handphone INTEGER, username VARCHAR(16));"""
+
+	db.create_table(instance_database)
+
+	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
+	%s, %s, %s)"""
+
+	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
+	 user_info['username'])
+
+	db.insert(query_sql, query_info)
+
+	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200
