@@ -81,7 +81,7 @@ def cancel_order(id):
 	return jsonify({"message": "Id does not exist"}), 200
 
 
-@app.route(base_url + '/register', methods=['POST'])
+@app.route(base_url + '/auth/user', methods=['POST'])
 def register_user():
 
 	user_info = request.get_json()
@@ -96,3 +96,22 @@ def register_user():
 	db.insert(query_sql, query_info)
 
 	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200
+
+@app.route(base_url + '/auth/login', methods=['POST'])
+def login_user():
+	pass
+
+@app.route(base_url + '/parcels/<int:id>/status', methods=['PUT'])
+def parcel_status():
+	#admin only
+	pass
+
+@app.route(base_url + '/parcels/<int:id>/presentLocation', methods=['PUT'])
+def parcel_present_location():
+	#admin only
+	pass
+
+@app.route(base_url + '/parcels/<int:id>/destination', methods=['PUT'])
+def change_status_by_user():
+	#creator only change location
+	pass
