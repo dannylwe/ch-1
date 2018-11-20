@@ -80,17 +80,24 @@ def cancel_order(id):
 			return jsonify({"cancelled": parcel}), 201
 	return jsonify({"message": "Id does not exist"}), 200
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 @app.route(base_url + '/register', methods=['POST'])
 def register_user():
 
 	user_info = request.get_json()
 	db = Database()
 
+<<<<<<< HEAD
 	instance_database = """CREATE TABLE IF NOT EXISTS USERS (user_id SERIAL PRIMARY KEY,
 	 email VARCHAR(20), password VARCHAR(20), handphone INTEGER, username VARCHAR(16));"""
 
 	db.create_table(instance_database)
 
+=======
+>>>>>>> master
 	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
 	%s, %s, %s)"""
 
