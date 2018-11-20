@@ -27,13 +27,13 @@ token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
 
+db = Database()
+
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
 def hello_world():
 	parcel_info = request.get_json()
 	current_user = get_jwt_identity()
-
-	db = Database()
 
 	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
 	username) VALUES (%s, %s, %s, %s, %s)"""
@@ -89,9 +89,6 @@ def cancel_order(id):
 def register_user():
 
 	user_info = request.get_json()
-	db = Database()
-
-	# print(user_info['username'])
 
 	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
 	%s, %s, %s)"""
@@ -112,7 +109,6 @@ def register_user():
 def login_user_auth():
 
 	user_login = request.get_json()
-	db = Database()
 
 	query_login = "SELECT username, password from users WHERE username = '{}' and password = '{}' ".format(
 		user_login['username'], user_login['password'])
@@ -143,28 +139,23 @@ def refresh_token():
 
 @app.route(base_url + '/parcels/<int:parcel_id>/status', methods=['PUT'])
 @jwt_required
-def parcel_status():
-	#admin only
-	pass
+def parcel_status(parcel_id):
+	data = request.get_json()
 
-# @app.route(base_url + 'auth/parcels', methods=['POST'])
-# @jwt_required
-# def post_parcel_jwt():
+	current_admin= get_jwt_identity()
 
-# 	parcel_info = request.get_json()
-# 	current_user = get_jwt_identity()
+	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_admin, parcel_id)
+	if not db.query(get_by_user):
+		return jsonify({"error":"unauthorized access"}), 401
 
-# 	db = Database()
+	get_by_admin = "SELECT * from parcel WHERE username = '{}' and admin = True".format(current_admin)
 
-# 	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
-# 	username) VALUES (%s,
-# 	%s, %s, %s)"""
-# 	query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
-# 	 parcel_info['weight'], current_user)
+	update_status= "UPDATE parcel set status = %s where parcel_id = %s "
 
-# 	db.insert(query_sql, query_info)
+	db.insert(update_status, (data['status'], parcel_id))
 
-# 	return jsonify({"added parcel": query_info}), 201
+	return jsonify({"status of parcel": data['status']}), 201
+
 
 @app.route(base_url + '/parcels/<int:parcel_id>/presentLocation', methods=['PUT'])
 @jwt_required
@@ -174,9 +165,20 @@ def parcel_present_location():
 
 @app.route(base_url + '/parcels/<int:parcel_id>/destination', methods=['PUT'])
 @jwt_required
-def change_status_by_user():
-	#creator only change location
-	pass
+def change_destination_by_user(parcel_id)
+
+	data = request.get_json()
+
+	current_user= get_jwt_identity()
+
+	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_user, parcel_id)
+	if not db.query(get_by_user):
+		return jsonify({"error":"unauthorized access"}), 401
+
+	update_dest= "UPDATE parcel set destination = %s where parcel_id = %s "
+	db.insert(update_dest, (data['destination'], parcel_id))
+
+	return jsonify({"updated destination to": data['destination']}), 201
 
 @app.route(base_url + '/auth/logout', methods=['GET'])
 @app.route(base_url + '/logout', methods=['GET'])

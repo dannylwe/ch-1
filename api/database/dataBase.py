@@ -59,8 +59,8 @@ class Database:
 	 	# self.cursor.execute(create_parcel_table)
 	 	#self.conn.commit()
 
-	def close(self):
-		return self.conn.close()
+	# def close(self):
+	# 	return self.conn.close()
 
 	def query(self, query_string):
 		self.cursor.execute(query_string)
@@ -71,15 +71,15 @@ class Database:
 		self.cursor.execute(query_string, data)
 		self.conn.commit()
 
-	def create_table(self, query_string):
-		self.cursor.execute(query_string)
-		self.conn.commit()
-		return print("table created")
+	# def create_table(self, query_string):
+	# 	self.cursor.execute(query_string)
+	# 	self.conn.commit()
+	# 	return print("table created")
 
-	def update_table(self, query_update, query_data):
-		self.cursor.execute(query_update, query_data)
-		self.conn.commit()
-		return print("updated table")
+	# def update_table(self, query_update, query_data):
+	# 	self.cursor.execute(query_update, query_data)
+	# 	self.conn.commit()
+	# 	return print("updated table")
 
 	
 	 	# self.cursor.execute(create_parcel_table)
