@@ -11,8 +11,6 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity, set_access_cookies,
     set_refresh_cookies, unset_jwt_cookies)
 
-
-
 app = Flask(__name__)
 cors = CORS(app)
 jwt = JWTManager(app)
@@ -118,9 +116,9 @@ def register_user():
 
 	# print(db.query(query_check_username))
 
-	#db.insert(query_sql, query_info)
+	db.insert(query_sql, query_info)
 
-	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200
+	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 201
 
 @app.route(base_url + '/auth/login', methods=['POST'])
 def login_user_auth():
@@ -131,7 +129,7 @@ def login_user_auth():
 	query_login = "SELECT username, password from users WHERE username = '{}' and password = '{}' ".format(
 		user_login['username'], user_login['password'])
 
-	if db.query(query_login):
+	if not db.query(query_login):
 		return jsonify({"error": "invalid credentials"}), 401
 
 	access_token= create_access_token(identity= user_login['username'])
@@ -140,14 +138,6 @@ def login_user_auth():
 
 	set_access_cookies(resp, access_token)
 	set_refresh_cookies(resp, refresh_token)
-
-    # access_token = create_access_token(identity=user_login['username'])
-    # refresh_token = create_refresh_token(identity=user_login['username'])
-
-    # resp = jsonify({"message": "Logged in Succesfully. Welcome to sendIT"})
-
-    # set_access_cookies(resp, access_token)
-    # set_refresh_cookies(resp, refresh_token)
 
 	return resp, 200
 
@@ -181,8 +171,8 @@ def change_status_by_user():
 	#creator only change location
 	pass
 
-@app.route(base_url + '/auth/logout', methods=['POST'])
-@app.route('/logout', methods=['POST'])
+@app.route(base_url + '/auth/logout', methods=['GET'])
+@app.route('/logout', methods=['GET'])
 def logout_revoke_jwt():
     resp = jsonify({'logout': True})
     unset_jwt_cookies(resp)
