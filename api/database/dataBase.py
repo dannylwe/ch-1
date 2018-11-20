@@ -36,35 +36,24 @@ class Database:
 		user= str(self.user), password=str(self.password))
 		self.cursor = self.conn.cursor()
 
-	def setUp(self):
-		# create_parcel_table = """CREATE TABLE IF NOT EXISTS parcel (
-		# 	parcel_id SERIAL PRIMARY KEY,
-		# 	user_id INTEGER, 
-		# 	nickname VARCHAR(20), 
-		# 	pickup VARCHAR(40), 
-		# 	destination VARCHAR(40), 
-		# 	weight INTEGER,
-		# 	status VARCHAR(20) DEFAULT 'pending', 
-		# 	order_time date, 
-		# 	FOREIGN KEY(user_id) REFRENCES users (user_id))"""
-
-		create_user_table = """CREATE TABLE IF NOT EXISTS users (
-			user_id SERIAL PRIMARY KEY,
-		 	email VARCHAR(30), 
-		 	password VARCHAR(20),
-		 	handphone INTEGER, 
-		 	username VARCHAR(16));
-		 	CREATE TABLE IF NOT EXISTS parcel (
-			parcel_id SERIAL PRIMARY KEY,
-			user_id INTEGER, 
-			nickname VARCHAR(20), 
-			pickup VARCHAR(40), 
-			destination VARCHAR(40), 
-			weight INTEGER,
-			status VARCHAR(20) DEFAULT 'pending', 
-			order_time date, 
-			FOREIGN KEY(user_id) REFRENCES users (user_id));
-		 	"""
+	# def setUp(self):
+	# 	create_user_table = """CREATE TABLE IF NOT EXISTS users (
+	# 		user_id SERIAL PRIMARY KEY,
+	# 	 	email VARCHAR(30), 
+	# 	 	password VARCHAR(20),
+	# 	 	handphone INTEGER, 
+	# 	 	username VARCHAR(16));
+	# 	 	CREATE TABLE IF NOT EXISTS parcel (
+	# 		parcel_id SERIAL PRIMARY KEY,
+	# 		user_id INTEGER, 
+	# 		nickname VARCHAR(20), 
+	# 		pickup VARCHAR(40), 
+	# 		destination VARCHAR(40), 
+	# 		weight INTEGER,
+	# 		status VARCHAR(20) DEFAULT 'pending', 
+	# 		order_time date, 
+	# 		FOREIGN KEY(user_id) REFRENCES users (user_id));
+	# 	 	"""
 
 	 	#create_table(create_user_table)
 	 	# self.cursor.execute(create_parcel_table)
@@ -113,13 +102,14 @@ class Database:
 # 	query = "SELECT * FROM playground;"
 # 	#db.query(query)
 
-# create_user_table = """CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY,
-#  email VARCHAR(30), password VARCHAR(20), handphone INTEGER, username VARCHAR(16));"""
+# create_user_table = """CREATE TABLE IF NOT EXISTS users (user_id SERIAL,
+#  email VARCHAR(30), password VARCHAR(20), handphone INTEGER, username VARCHAR(16),
+#  admin BOOLEAN DEFAULT False, PRIMARY KEY (username));"""
 
-# create_parcel_table = """CREATE TABLE IF NOT EXISTS parcel (parcel_id SERIAL PRIMARY KEY, 
-# user_id INTEGER, nickname VARCHAR(20), pickup VARCHAR(40), destination VARCHAR(40), 
-# weight INTEGER,status VARCHAR(20) DEFAULT 'pending', order_time date, 
-# FOREIGN KEY (user_id) REFERENCES users (user_id));"""
+# create_parcel_table = """CREATE TABLE IF NOT EXISTS parcel (parcel_id SERIAL, 
+# nickname VARCHAR(20), pickup VARCHAR(40), destination VARCHAR(40), 
+# weight INTEGER, status VARCHAR(20) DEFAULT 'pending', order_time date, username VARCHAR(20),
+#  FOREIGN KEY (username) REFERENCES users (username));"""
 
 # 	# get_one = """SELECT * FROM playground LIMIT 1;"""
 # 	# print(db.query_one(get_one))
