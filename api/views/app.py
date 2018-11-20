@@ -5,12 +5,21 @@ import datetime
 #import uuid
 from models.parcel_store import *
 from database.dataBase import Database
+from flask import Flask, jsonify, request
+from flask_jwt_extended import (JWTManager, jwt_required,
+ create_access_token,get_jwt_identity)
+
 
 
 app = Flask(__name__)
 cors = CORS(app)
+jwt = JWTManager(app)
 
 app.config['DEBUG'] = True
+app.config['JWT_SECRET_KEY'] = 'THANOS-will-RetUrn'
+app.config['JWT_TOKEN_LOCATION'] = ['COOKIES']
+app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
+app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
 base_url= '/api/v1'
@@ -114,6 +123,10 @@ def login_user_auth():
 
 	if not db.query(query_login):
 		return jsonify({"error": "invalid credentials"})
+
+    access_token = create_access_token(identity=user_login['username'])
+    refresh_token = create_refresh_token(identity=user_login['username'])
+    
 	return jsonify({"message": "Logged in Succesfully. Welcome to sendIT"})
 
 @app.route(base_url + '/parcels/<int:id>/status', methods=['PUT'])
