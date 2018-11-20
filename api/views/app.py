@@ -6,6 +6,7 @@ import datetime
 from models.parcel_store import *
 from database.dataBase import Database
 
+
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -90,16 +91,30 @@ def register_user():
 	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
 	%s, %s, %s)"""
 
+	query_check_username = "SELECT username FROM users WHERE username = '{}' ".format(user_info['username'])
+
 	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
 	 user_info['username'])
+
+	if not db.query(query_check_username):
+		return jsonify({"error": "usename Already Exists!"}), 400
 
 	db.insert(query_sql, query_info)
 
 	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200
 
 @app.route(base_url + '/auth/login', methods=['POST'])
-def login_user():
-	pass
+def login_user_auth():
+
+	user_login = request.get_json()
+	db = Database()
+
+	query_login = "SELECT username, password from users WHERE username = '{}' and password = '{}' ".format(
+		user_login['username'], user_login['password'])
+
+	if not db.query(query_login):
+		return jsonify({"error": "invalid credentials"})
+	return jsonify({"message": "Logged in Succesfully. Welcome to sendIT"})
 
 @app.route(base_url + '/parcels/<int:id>/status', methods=['PUT'])
 def parcel_status():
@@ -114,4 +129,8 @@ def parcel_present_location():
 @app.route(base_url + '/parcels/<int:id>/destination', methods=['PUT'])
 def change_status_by_user():
 	#creator only change location
+	pass
+
+@app.route(base_url + '/auth/logout', methods=['POST'])
+def logout_user():
 	pass

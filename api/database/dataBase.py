@@ -42,8 +42,9 @@ class Database:
 	def query(self, query_string):
 
 		self.cursor.execute(query_string)
-		return_object = self.cursor.fetchall()
-		return return_object
+		self.cursor.fetchall()
+
+	
 
 	def insert(self, query_string, data):
 		self.cursor.execute(query_string, data)
