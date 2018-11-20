@@ -158,22 +158,25 @@ def refresh_token():
     current_user = get_jwt_identity()
     access_token = create_access_token(identity=current_user)
 
-   
+
     resp = jsonify({'message': 'Refreshed access token. You can now continue using sendIT'})
     set_access_cookies(resp, access_token)
     return resp, 200
 
 @app.route(base_url + '/parcels/<int:id>/status', methods=['PUT'])
+@jwt_required
 def parcel_status():
 	#admin only
 	pass
 
 @app.route(base_url + '/parcels/<int:id>/presentLocation', methods=['PUT'])
+@jwt_required
 def parcel_present_location():
 	#admin only
 	pass
 
 @app.route(base_url + '/parcels/<int:id>/destination', methods=['PUT'])
+@jwt_required
 def change_status_by_user():
 	#creator only change location
 	pass
