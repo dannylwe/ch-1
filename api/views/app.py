@@ -19,7 +19,7 @@ jwt = JWTManager(app)
 
 app.config['DEBUG'] = True
 app.config['JWT_SECRET_KEY'] = 'THANOS-will-RetUrn'
-app.config['JWT_TOKEN_LOCATION'] = ['COOKIES']
+app.config['JWT_TOKEN_LOCATION'] = "cookies"
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
 app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -101,18 +101,24 @@ def register_user():
 	user_info = request.get_json()
 	db = Database()
 
+	# print(user_info['username'])
+
 	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
 	%s, %s, %s)"""
 
-	query_check_username = "SELECT username FROM users WHERE username = '{}' ".format(user_info['username'])
+	query_check_username = "SELECT * FROM users WHERE username = '{}' ".format(user_info['username'])
 
 	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
 	 user_info['username'])
 
-	if not db.query(query_check_username):
+	if db.query(query_check_username):
 		return jsonify({"error": "usename Already Exists!"}), 400
 
-	db.insert(query_sql, query_info)
+	# print(db.query("""SELECT * FROM users;"""))
+
+	# print(db.query(query_check_username))
+
+	#db.insert(query_sql, query_info)
 
 	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200
 
@@ -125,8 +131,8 @@ def login_user_auth():
 	query_login = "SELECT username, password from users WHERE username = '{}' and password = '{}' ".format(
 		user_login['username'], user_login['password'])
 
-	if not db.query(query_login):
-		return jsonify({"error": "invalid credentials"})
+	if db.query(query_login):
+		return jsonify({"error": "invalid credentials"}), 401
 
 	access_token= create_access_token(identity= user_login['username'])
 	refresh_token= create_access_token(identity=user_login['username'])

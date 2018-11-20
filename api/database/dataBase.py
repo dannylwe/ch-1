@@ -40,11 +40,9 @@ class Database:
 		return self.conn.close()
 
 	def query(self, query_string):
-
 		self.cursor.execute(query_string)
-		self.cursor.fetchall()
-
-	
+		return_object = self.cursor.fetchall()
+		return return_object
 
 	def insert(self, query_string, data):
 		self.cursor.execute(query_string, data)
