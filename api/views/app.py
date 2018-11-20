@@ -6,8 +6,10 @@ import datetime
 from models.parcel_store import *
 from database.dataBase import Database
 from flask import Flask, jsonify, request
-from flask_jwt_extended import (JWTManager, jwt_required,
- create_access_token,get_jwt_identity)
+from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
+	jwt_refresh_token_required, create_refresh_token,
+    get_jwt_identity, set_access_cookies,
+    set_refresh_cookies, unset_jwt_cookies)
 
 
 
@@ -20,8 +22,10 @@ app.config['JWT_SECRET_KEY'] = 'THANOS-will-RetUrn'
 app.config['JWT_TOKEN_LOCATION'] = ['COOKIES']
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
-
 app.wsgi_app = ProxyFix(app.wsgi_app)
+
+token_expire = datetime.timedelta(days=0.1)
+
 base_url= '/api/v1'
 
 @app.route(base_url + '/hello')
@@ -124,10 +128,34 @@ def login_user_auth():
 	if not db.query(query_login):
 		return jsonify({"error": "invalid credentials"})
 
-    access_token = create_access_token(identity=user_login['username'])
-    refresh_token = create_refresh_token(identity=user_login['username'])
+	access_token= create_access_token(identity= user_login['username'])
+	refresh_token= create_access_token(identity=user_login['username'])
+	resp = jsonify({"message": "Logged in successfully. Welcome to sendIT"})
+
+	set_access_cookies(resp, access_token)
+	set_refresh_cookies(resp, refresh_token)
+
+    # access_token = create_access_token(identity=user_login['username'])
+    # refresh_token = create_refresh_token(identity=user_login['username'])
+
+    # resp = jsonify({"message": "Logged in Succesfully. Welcome to sendIT"})
+
+    # set_access_cookies(resp, access_token)
+    # set_refresh_cookies(resp, refresh_token)
+
+	return resp, 200
+
+@app.route('/token/refresh', methods=['POST'])
+@jwt_refresh_token_required
+def refresh_token():
     
-	return jsonify({"message": "Logged in Succesfully. Welcome to sendIT"})
+    current_user = get_jwt_identity()
+    access_token = create_access_token(identity=current_user)
+
+   
+    resp = jsonify({'message': 'Refreshed access token. You can now continue using sendIT'})
+    set_access_cookies(resp, access_token)
+    return resp, 200
 
 @app.route(base_url + '/parcels/<int:id>/status', methods=['PUT'])
 def parcel_status():
@@ -145,5 +173,8 @@ def change_status_by_user():
 	pass
 
 @app.route(base_url + '/auth/logout', methods=['POST'])
-def logout_user():
-	pass
+@app.route('/logout', methods=['POST'])
+def logout_revoke_jwt():
+    resp = jsonify({'logout': True})
+    unset_jwt_cookies(resp)
+    return resp, 200
