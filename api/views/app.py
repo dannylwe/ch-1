@@ -20,37 +20,29 @@ app.config['JWT_SECRET_KEY'] = 'THANOS-will-RetUrn'
 app.config['JWT_TOKEN_LOCATION'] = "cookies"
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
 token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
 
-@app.route(base_url + '/hello')
+@app.route(base_url + '/parcels', methods=['POST'])
+@jwt_required
 def hello_world():
-	return jsonify({'hello': 'world'}), 200
+	parcel_info = request.get_json()
+	current_user = get_jwt_identity()
 
-@app.route(base_url + '/parcels', methods=['GET', 'POST'])
-def get_parcel():
+	db = Database()
 
-	if request.method == 'GET':
-		if parcels == []:
-			return jsonify({"message": "list is empty"}), 200
-		return jsonify({"message":parcels}), 200
+	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
+	username) VALUES (%s, %s, %s, %s, %s)"""
+	query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
+	 parcel_info['weight'], current_user)
 
-	if request.method == 'POST':
-		post_parcel = request.get_json()
+	db.insert(query_sql, query_info)
 
-		error_handler(post_parcel)
-
-		if post_parcel['weight'] > 10:
-			abt_weight = make_response("Too heavy")
-			abt_weight.status_code = 400
-			return abt_weight
-
-		create(post_parcel)
-
-		return jsonify({"created": post_parcel}), 201
+	return jsonify({"added parcel": query_info}), 201
 
 @app.route(base_url + '/parcels/<int:id>', methods=['GET'])
 def gets_by_id(id):
@@ -112,10 +104,6 @@ def register_user():
 	if db.query(query_check_username):
 		return jsonify({"error": "usename Already Exists!"}), 400
 
-	# print(db.query("""SELECT * FROM users;"""))
-
-	# print(db.query(query_check_username))
-
 	db.insert(query_sql, query_info)
 
 	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 201
@@ -141,7 +129,7 @@ def login_user_auth():
 
 	return resp, 200
 
-@app.route('/token/refresh', methods=['POST'])
+@app.route(base_url + '/token/refresh', methods=['GET'])
 @jwt_refresh_token_required
 def refresh_token():
     
@@ -159,6 +147,25 @@ def parcel_status():
 	#admin only
 	pass
 
+# @app.route(base_url + 'auth/parcels', methods=['POST'])
+# @jwt_required
+# def post_parcel_jwt():
+
+# 	parcel_info = request.get_json()
+# 	current_user = get_jwt_identity()
+
+# 	db = Database()
+
+# 	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
+# 	username) VALUES (%s,
+# 	%s, %s, %s)"""
+# 	query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
+# 	 parcel_info['weight'], current_user)
+
+# 	db.insert(query_sql, query_info)
+
+# 	return jsonify({"added parcel": query_info}), 201
+
 @app.route(base_url + '/parcels/<int:parcel_id>/presentLocation', methods=['PUT'])
 @jwt_required
 def parcel_present_location():
@@ -172,8 +179,8 @@ def change_status_by_user():
 	pass
 
 @app.route(base_url + '/auth/logout', methods=['GET'])
-@app.route('/logout', methods=['GET'])
+@app.route(base_url + '/logout', methods=['GET'])
 def logout_revoke_jwt():
-    resp = jsonify({'logout': True})
+    resp = jsonify({'logout': "Logged out of sendIT"})
     unset_jwt_cookies(resp)
     return resp, 200

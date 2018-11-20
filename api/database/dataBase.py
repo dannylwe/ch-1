@@ -111,6 +111,8 @@ class Database:
 # weight INTEGER, status VARCHAR(20) DEFAULT 'pending', order_time date, username VARCHAR(20),
 #  FOREIGN KEY (username) REFERENCES users (username));"""
 
+# admin_priv= update users set admin=True where username= 'danny1';
+
 # 	# get_one = """SELECT * FROM playground LIMIT 1;"""
 # 	# print(db.query_one(get_one))
 # 	query_2 = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
