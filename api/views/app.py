@@ -46,7 +46,7 @@ def hello_world():
 
 @app.route(base_url + '/parcels/<int:id>', methods=['GET'])
 @jwt_required
-def gets_single_parcel by_id(id):
+def gets_single_parcel_by_id(id):
 
 	if request.method == 'GET':
 		if type(id) != int:
