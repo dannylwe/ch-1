@@ -45,7 +45,8 @@ def hello_world():
 	return jsonify({"added parcel": query_info}), 201
 
 @app.route(base_url + '/parcels/<int:id>', methods=['GET'])
-def gets_by_id(id):
+@jwt_required
+def gets_single_parcel by_id(id):
 
 	if request.method == 'GET':
 		if type(id) != int:
@@ -59,6 +60,7 @@ def gets_by_id(id):
 
 
 @app.route(base_url + '/users/<int:user_id>/parcels', methods=['GET'])
+@jwt_required
 def get_from_user(user_id):
 
 	result = []
@@ -72,6 +74,7 @@ def get_from_user(user_id):
 	return jsonify({"message": result})
 
 @app.route(base_url + '/parcels/<int:id>/cancel', methods=['PUT'])
+@jwt_required
 def cancel_order(id):
 
 	post_parcel = request.get_json()
