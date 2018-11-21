@@ -36,11 +36,33 @@ class Database:
 		user= str(self.user), password=str(self.password))
 		self.cursor = self.conn.cursor()
 
-	def close(self):
-		return self.conn.close()
+	# def setUp(self):
+	# 	create_user_table = """CREATE TABLE IF NOT EXISTS users (
+	# 		user_id SERIAL PRIMARY KEY,
+	# 	 	email VARCHAR(30), 
+	# 	 	password VARCHAR(20),
+	# 	 	handphone INTEGER, 
+	# 	 	username VARCHAR(16));
+	# 	 	CREATE TABLE IF NOT EXISTS parcel (
+	# 		parcel_id SERIAL PRIMARY KEY,
+	# 		user_id INTEGER, 
+	# 		nickname VARCHAR(20), 
+	# 		pickup VARCHAR(40), 
+	# 		destination VARCHAR(40), 
+	# 		weight INTEGER,
+	# 		status VARCHAR(20) DEFAULT 'pending', 
+	# 		order_time date, 
+	# 		FOREIGN KEY(user_id) REFRENCES users (user_id));
+	# 	 	"""
+
+	 	#create_table(create_user_table)
+	 	# self.cursor.execute(create_parcel_table)
+	 	#self.conn.commit()
+
+	# def close(self):
+	# 	return self.conn.close()
 
 	def query(self, query_string):
-
 		self.cursor.execute(query_string)
 		return_object = self.cursor.fetchall()
 		return return_object
@@ -49,15 +71,21 @@ class Database:
 		self.cursor.execute(query_string, data)
 		self.conn.commit()
 
-	def create_table(self, query_string):
-		self.cursor.execute(query_string)
-		self.conn.commit()
-		return print("table created")
+	# def create_table(self, query_string):
+	# 	self.cursor.execute(query_string)
+	# 	self.conn.commit()
+	# 	return print("table created")
 
-	def update_table(self, query_update, query_data):
-		self.cursor.execute(query_update, query_data)
-		self.conn.commit()
-		return print("updated table")
+	# def update_table(self, query_update, query_data):
+	# 	self.cursor.execute(query_update, query_data)
+	# 	self.conn.commit()
+	# 	return print("updated table")
+
+	
+	 	# self.cursor.execute(create_parcel_table)
+	 	# self.conn.commit()
+
+	 	# return "success"
 
 
 
@@ -74,8 +102,16 @@ class Database:
 # 	query = "SELECT * FROM playground;"
 # 	#db.query(query)
 
-# 	instance_database = """CREATE TABLE IF NOT EXISTS USERS (user_id SERIAL PRIMARY KEY,
-# 	 email VARCHAR(20), password VARCHAR(20), handphone INTEGER, username VARCHAR(16));"""
+# create_user_table = """CREATE TABLE IF NOT EXISTS users (user_id SERIAL,
+#  email VARCHAR(30), password VARCHAR(20), handphone INTEGER, username VARCHAR(16),
+#  admin BOOLEAN DEFAULT False, PRIMARY KEY (username));"""
+
+# create_parcel_table = """CREATE TABLE IF NOT EXISTS parcel (parcel_id SERIAL, 
+# nickname VARCHAR(20), pickup VARCHAR(40), destination VARCHAR(40), 
+# weight INTEGER, status VARCHAR(20) DEFAULT 'pending', order_time date, username VARCHAR(20),
+#  FOREIGN KEY (username) REFERENCES users (username));"""
+
+# admin_priv= update users set admin=True where username= 'danny1';
 
 # 	# get_one = """SELECT * FROM playground LIMIT 1;"""
 # 	# print(db.query_one(get_one))
