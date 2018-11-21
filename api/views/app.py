@@ -10,6 +10,7 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
 	jwt_refresh_token_required, create_refresh_token,
     get_jwt_identity, set_access_cookies,
     set_refresh_cookies, unset_jwt_cookies)
+from api.validation.parcel_validation import Verify
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -28,12 +29,14 @@ token_expire = datetime.timedelta(days=0.1)
 base_url= '/api/v1'
 
 db = Database()
-#change to post parcels
+
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
-def hello_world():
+def post_single_parcel():
 	parcel_info = request.get_json()
 	current_user = get_jwt_identity()
+
+	Verify.error_handler(parcel_info)
 
 	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
 	username) VALUES (%s, %s, %s, %s, %s)"""
@@ -119,8 +122,8 @@ def login_user_auth():
 	if not db.query(query_login):
 		return jsonify({"error": "invalid credentials"}), 401
 
-	access_token= create_access_token(identity= user_login['username'])
-	refresh_token= create_access_token(identity=user_login['username'])
+	access_token= create_access_token(identity= user_login['username'], expires_delta=token_expire)
+	refresh_token= create_access_token(identity=user_login['username'], expires_delta=token_expire)
 	resp = jsonify({"message": "Logged in successfully. Welcome to sendIT"})
 
 	set_access_cookies(resp, access_token)
