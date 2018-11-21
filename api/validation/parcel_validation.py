@@ -19,15 +19,15 @@ class Verify:
 			abort(400, "fields can not be a space")
 
 		if post_parcel['weight'] > 11:
-			return jsonify({"error": "parcel weight is beyond limits"})
+			abort(400, "parcel weight is beyond limits")
 
 		if len(post_parcel['nickname']) < 4:
-			return jsonify({"error": "nickname must be at least 4 characters"})
+			abort(400, "nickname must be at least 4 characters")
 
-		lower_case = re.complie('[a-z]+')
+		lower_case = re.compile('[a-z]+')
 		if not lower_case.match(post_parcel['nickname']) or not lower_case.match(post_parcel['destination']) \
 		or not lower_case.match(post_parcel['pickup']):
-			return jsonify({"error": "nickname can only be in lowercase"})
+			abort(400, "nickname can only be in lowercase")
 		if (len(post_parcel['height']) or post_parcel['weight']) > 3:
-			return jsonify({"error": "invalid lenght of weight or height"})
+			abort(400, "invalid lenght of weight or height")
 		return

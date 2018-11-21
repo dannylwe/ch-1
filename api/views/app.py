@@ -11,6 +11,7 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity, set_access_cookies,
     set_refresh_cookies, unset_jwt_cookies)
 from api.validation.parcel_validation import Verify
+from api.validation.user_auth import Auth_user
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -95,6 +96,8 @@ def cancel_order(id):
 def register_user():
 
 	user_info = request.get_json()
+
+	Auth_user.verify(user_info)
 
 	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
 	%s, %s, %s)"""
