@@ -93,3 +93,5 @@ class Database:
 # 	db.insert(query_2, query_2_insert)
 # 	db.update_table(query_update, query_data)
 
+#psql -V 9.5
+
