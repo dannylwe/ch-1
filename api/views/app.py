@@ -2,9 +2,9 @@ from flask import Flask, abort, request, jsonify, abort, make_response
 from flask_cors import CORS
 from werkzeug.contrib.fixers import ProxyFix
 import datetime
-#import uuid
-from models.parcel_store import *
-from database.dataBase import Database
+#import uuid remove unused
+from api.models.parcel_store import *
+from api.database.dataBase import Database
 from flask import Flask, jsonify, request
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
 	jwt_refresh_token_required, create_refresh_token,
@@ -28,7 +28,7 @@ token_expire = datetime.timedelta(days=0.1)
 base_url= '/api/v1'
 
 db = Database()
-
+#change to post parcels
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
 def hello_world():
@@ -82,7 +82,7 @@ def cancel_order(id):
 		if parcel['id'] == id:
 			parcel['status'] = "cancelled"
 			return jsonify({"cancelled": parcel}), 201
-	return jsonify({"message": "Id does not exist"}), 200
+	return jsonify({"message": "Id does not exist"}), 200 #404
 
 
 @app.route(base_url + '/auth/user', methods=['POST'])
@@ -165,7 +165,7 @@ def parcel_present_location():
 
 @app.route(base_url + '/parcels/<int:parcel_id>/destination', methods=['PUT'])
 @jwt_required
-def change_destination_by_user(parcel_id)
+def change_destination_by_user(parcel_id):
 
 	data = request.get_json()
 

@@ -1,6 +1,6 @@
 from unittest import TestCase
 import json
-from views.app import app
+from api.views.app import app
 
 
 class Test(TestCase):
