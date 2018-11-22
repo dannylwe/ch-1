@@ -69,10 +69,10 @@ class Database:
 
 
 db = Database()
-try:
-	db.teardown()
-except e:
-	print(e)
+# try:
+# 	db.teardown()
+# except e:
+# 	print(e)
 db.create_table()
 
 
