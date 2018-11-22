@@ -9,7 +9,7 @@ class BaseTest(TestCase):
 
 	def setUp(self):
 		self.app = app.test_client()
-		os.environ['TESTING_DB'] = 'testing'
+		#os.putenv('TESTING_DB', 'testing')
 		self.db = Database()
 
 	def test_register_user_fail(self):

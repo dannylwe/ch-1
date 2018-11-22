@@ -1,14 +1,14 @@
 import psycopg2
 import os
 
-os.environ['TESTING_DB'] == 'production'
+os.putenv('TESTING_DB', 'testing')
 
-if os.getenv('TESING_DB')== 'testing':
-	database= 'testing'
-	host = 'localhost'
-	user = 'testing'
-	password = 'testing'
-	
+# if os.getenv('TESING_DB')== 'testing':
+# 	database= 'testing'
+# 	host = 'localhost'
+# 	user = 'testing'
+# 	password = 'testing'
+
 class Database:
 
 	host = 'localhost'
