@@ -12,9 +12,8 @@ class Verify:
 		if not isinstance(post_parcel['nickname'], str) or not isinstance(post_parcel['destination'], str) \
 		or not isinstance(post_parcel['pickup'], str):
 			abort(400, "nickname, destination must be strings")
-		if (post_parcel['nickname'].isspace() | post_parcel['weight'].isspace() 
-		| post_parcel['height'].isspace() | post_parcel['destination'].isspace() 
-		| post_parcel['pickup'].isspace() ):
+		if (post_parcel['nickname'].isspace() | post_parcel['destination'].isspace() |
+		 post_parcel['pickup'].isspace() ):
 
 			abort(400, "fields can not be a space")
 
@@ -28,6 +27,5 @@ class Verify:
 		if not lower_case.match(post_parcel['nickname']) or not lower_case.match(post_parcel['destination']) \
 		or not lower_case.match(post_parcel['pickup']):
 			abort(400, "nickname can only be in lowercase")
-		if (len(post_parcel['height']) or post_parcel['weight']) > 3:
-			abort(400, "invalid lenght of weight or height")
+
 		return

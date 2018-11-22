@@ -15,6 +15,8 @@ from api.validation.user_auth import Auth_user
 from api.views import cred_auth_users
 
 app = Flask(__name__)
+db = Database()
+db.create_table()
 app.register_blueprint(cred_auth_users.blueprint)
 
 cors = CORS(app)
@@ -30,10 +32,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 token_expire = datetime.timedelta(days=0.1)
 
-global base_url
 base_url= '/api/v1'
-
-db = Database()
 
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
@@ -50,7 +49,7 @@ def post_single_parcel():
 
 	db.insert(query_sql, query_info)
 
-	return jsonify({"added parcel": query_info}), 201
+	return jsonify({"added parcel": parcel_info['nickname']}), 201
 
 @app.route(base_url + '/parcels/<int:id>', methods=['GET'])
 @jwt_required

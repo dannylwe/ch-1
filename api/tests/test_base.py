@@ -20,7 +20,7 @@ class BaseTest(TestCase):
 				"password":"abcdefghij", "handphone":772504771}),content_type="application/json")
 		print(response.data)
 		#201
-		self.assertEqual(response.status_code, 400)
+		self.assertEqual(response.status_code, 201)
 
 	def test_register_user_exists(self):
 		response= self.app.post(base_url + '/auth/user',
