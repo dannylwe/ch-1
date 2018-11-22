@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 # conn = psycopg2.connect(host="localhost",database="admin", user="admin", password="admin")
 
@@ -27,6 +28,10 @@ class Database:
 	password = 'admin'
 
 	def __init__(self):
+
+		# if os.getenv('TESING_DB')== 'testing':
+		# 	database= '####'
+		#export TESTING_DB=testing
 
 		host = self.host
 		database = self.database

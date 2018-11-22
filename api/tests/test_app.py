@@ -1,12 +1,14 @@
 from unittest import TestCase
 import json
 from api.views.app import app
+from api.tests.test_base import BaseTest
 
+# dao = BaseTest()
 
-class Test(TestCase):
+class Test(BaseTest): #inherit basetst
 
-	def setUp(self):
-		self.app = app.test_client()  
+	# def setUp(self):
+	# 	self.app = app.test_client()  
 
 	def test_token_refresh(self):
 		response = self.app.get('api/v1/token/refresh')
@@ -23,6 +25,10 @@ class Test(TestCase):
 	def test_logout_fail(self):
 		response = self.app.get('/api/v1/auth/logout')
 		self.assertEqual(response.status_code, 401)
+
+	# with dao.test_register_user_exists():
+	# 	print('hello')
+
 
 
 	# def test_hello_world(self):

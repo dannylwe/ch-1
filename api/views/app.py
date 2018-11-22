@@ -106,6 +106,8 @@ def register_user():
 
 	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
 	 user_info['username'])
+	print(query_info)
+	print(db.query(query_check_username))
 
 	if db.query(query_check_username):
 		return jsonify({"error": "usename Already Exists!"}), 400

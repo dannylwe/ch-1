@@ -14,10 +14,10 @@ class Auth_user:
 		or not isinstance(users_info['password'], str):
 			return jsonify({"error":"username, password and email must be strings"})
 
-		if len(str(users_info['email'])) < 7:
-			abort(400, "email too short")
+		if len(str(users_info['email'])) < 12:
+			return abort(400, "email too short")
 
-		if len(str(users_info['password'])) < 8:
+		if len(str(users_info['password'])) < 6:
 			abort(400, "password too short")
 
 		if not email_stmt.match(users_info['email']):
@@ -29,7 +29,7 @@ class Auth_user:
 		if not isinstance(users_info['handphone'], int):
 			abort(400, "handphone must be an integer")
 
-		if (len(users_info['username']) or len(users_info['email']) or len(users_info['password'])) > 30:
+		if (len(users_info['username']) or len(users_info['email']) or len(users_info['password'])) > 20:
 			abort(400, "email/password/username must be < 29")
 
 		if len(str(users_info['handphone'])) > 13:
