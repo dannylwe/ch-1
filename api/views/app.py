@@ -33,7 +33,6 @@ token_expire = datetime.timedelta(days=0.1)
 global base_url
 base_url= '/api/v1'
 
-
 db = Database()
 
 @app.route(base_url + '/parcels', methods=['POST'])
@@ -82,19 +81,33 @@ def get_from_user(user_id):
 		abort(404, 'No such user')
 	return jsonify({"message": result})
 
-@app.route(base_url + '/parcels/<int:id>/cancel', methods=['PUT'])
+@app.route(base_url + '/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
-def cancel_order(id):
+def cancel_order(parcel_id):
 
 	post_parcel = request.get_json()
 
 	error_handler(post_parcel)
 
-	for parcel in parcels:
-		if parcel['id'] == id:
-			parcel['status'] = "cancelled"
-			return jsonify({"cancelled": parcel}), 201
-	return jsonify({"message": "Id does not exist"}), 200 #404
+	# for parcel in parcels:
+	# 	if parcel['id'] == id:
+	# 		parcel['status'] = "cancelled"
+	# 		return jsonify({"cancelled": parcel}), 201
+	# return jsonify({"message": "Id does not exist"}), 200 #404
+
+	current_user= get_jwt_identity()
+
+	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_user, parcel_id)
+	if not db.query(get_by_user):
+		return jsonify({"error":"unauthorized access"}), 401
+
+	get_by_user = "SELECT * from parcel WHERE username = '{}' and admin = False".format(current_user)
+
+	update_status= "UPDATE parcel set status = %s where parcel_id = %s "
+
+	db.insert(update_status, ("cancelled", parcel_id))
+
+	return jsonify({"cancelled": parcel_id}), 201
 
 
 @app.route(base_url + '/auth/user', methods=['POST'])
