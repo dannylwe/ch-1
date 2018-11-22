@@ -190,7 +190,7 @@ def change_destination_by_user(parcel_id):
 	return jsonify({"updated destination to": data['destination']}), 201
 
 @app.route(base_url + '/auth/logout', methods=['GET'])
-@app.route(base_url + '/logout', methods=['GET'])
+@jwt_required
 def logout_revoke_jwt():
     resp = jsonify({'logout': "Logged out of sendIT"})
     unset_jwt_cookies(resp)

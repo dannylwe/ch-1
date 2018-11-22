@@ -7,18 +7,17 @@ class Auth_user:
 
 		users_info = payload
 		# psw_stmt = re.compile(r'[a-zA-Z0-9!@#$%^&*()_+-=]+')
-		psw_stmt = re.compile(r'[a-zA-Z0-9]+')
+		psw_stmt = re.compile(r'(^[a-zA-Z0-9]+$)')
 		email_stmt = re.compile(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)')
 
 		if not isinstance(users_info['username'], str) or not isinstance(users_info['email'], str) \
 		or not isinstance(users_info['password'], str):
 			return jsonify({"error":"username, password and email must be strings"})
 
-		print(users_info['email'])
-
 		if len(str(users_info['email'])) < 7:
-			# return jsonify({"error":"password is too short"})
-			#return False
+			abort(400, "email too short")
+
+		if len(str(users_info['password'])) < 8:
 			abort(400, "password too short")
 
 		if not email_stmt.match(users_info['email']):
