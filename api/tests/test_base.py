@@ -14,13 +14,13 @@ class BaseTest(TestCase):
 		print(response.data)
 		self.assertEqual(response.status_code, 400)
 
-	def test_register_user_success(self):
-		response= self.app.post(base_url + '/auth/user',
-			data=json.dumps({"username":"user2", "email":"user1@gmail.com",
-				"password":"abcdefghij", "handphone":772504771}),content_type="application/json")
-		print(response.data)
-		#201
-		self.assertEqual(response.status_code, 201)
+	# def test_register_user_success(self):
+	# 	response= self.app.post(base_url + '/auth/user',
+	# 		data=json.dumps({"username":"user2", "email":"user1@gmail.com",
+	# 			"password":"abcdefghij", "handphone":772504771}),content_type="application/json")
+	# 	print(response.data)
+	# 	#201
+	# 	self.assertEqual(response.status_code, 201)
 
 	def test_register_user_exists(self):
 		response= self.app.post(base_url + '/auth/user',
@@ -65,14 +65,14 @@ class BaseTest(TestCase):
 		print(response.data)
 		self.assertEqual(response.status_code, 400)
 
-	def test_register_user_exists(self):
+	def test_register_user_long_number(self):
 		response= self.app.post(base_url + '/auth/user',
 			data=json.dumps({"username":"user2", "email":"user1@gmail.com",
 				"password":"abcdefghij", "handphone":7725047715759393}),
 			content_type="application/json")
 		print(response.data)
 		#400
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_code, 400)
 
 	def test_register_user_exists(self):
 		response= self.app.post(base_url + '/auth/login',
@@ -81,12 +81,15 @@ class BaseTest(TestCase):
 			content_type="application/json")
 		print(response.data)
 		#400
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_code, 401)
 
 	def test_auth_login_cert(self):
 		return self.app.post(base_url + '/auth/login',
 			data=json.dumps({"username":"user2", "password":"abcdefghij"}),
 			content_type="application/json")
+
+	# def tearDown():
+	# 	db.teardown()
 
 
 	# def test_register_user_pass(self):
