@@ -8,6 +8,9 @@ install:
   - pip install codeclimate-test-reporter
   - pip install pytest pytest-cov
   - pip install coverage
+
+service:
+  -postgres
 #cache
 cache: pip
 # command to run tests
