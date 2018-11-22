@@ -88,12 +88,6 @@ def cancel_order(parcel_id):
 
 	error_handler(post_parcel)
 
-	# for parcel in parcels:
-	# 	if parcel['id'] == id:
-	# 		parcel['status'] = "cancelled"
-	# 		return jsonify({"cancelled": parcel}), 201
-	# return jsonify({"message": "Id does not exist"}), 200 #404
-
 	current_user= get_jwt_identity()
 
 	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_user, parcel_id)
@@ -123,8 +117,6 @@ def register_user():
 
 	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
 	 user_info['username'])
-	print(query_info)
-	print(db.query(query_check_username))
 
 	if db.query(query_check_username):
 		return jsonify({"error": "usename Already Exists!"}), 400

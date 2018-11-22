@@ -9,11 +9,10 @@ class BaseTest(TestCase):
 
 	def setUp(self):
 		self.app = app.test_client()
-		#os.putenv('TESTING_DB', 'testing')
 		self.db = Database()
 
 	def test_register_user_fail(self):
-		response= self.app.post(base_url + '/auth/user',
+		response= self.app.post('/api/v1/auth/user',
 			data=json.dumps({"username":"userk", "email":"user1@gmail.com",
 				"password":"abcd", "handphone":772504771}),content_type="application/json")
 		print(response.data)
@@ -21,8 +20,8 @@ class BaseTest(TestCase):
 
 	def test_register_user_exists(self):
 		response= self.app.post(base_url + '/auth/user',
-			data=json.dumps({"username":"user2", "email":"user2@gmail.com",
-				"password":"abcdefghij", "handphone":772504771}),content_type="application/json")
+			data=json.dumps({"username":"userkuv", "email":"user2@gmail.com",
+				"password":"abcdEFHJU", "handphone":772504771}),content_type="application/json")
 		print(response.data)
 		self.assertEqual(response.status_code, 400)
 
