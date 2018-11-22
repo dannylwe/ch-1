@@ -12,8 +12,11 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     set_refresh_cookies, unset_jwt_cookies)
 from api.validation.parcel_validation import Verify
 from api.validation.user_auth import Auth_user
+from api.views import cred_auth_users
 
 app = Flask(__name__)
+app.register_blueprint(cred_auth_users.blueprint)
+
 cors = CORS(app)
 jwt = JWTManager(app)
 
@@ -27,7 +30,9 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 token_expire = datetime.timedelta(days=0.1)
 
+global base_url
 base_url= '/api/v1'
+
 
 db = Database()
 
@@ -116,25 +121,6 @@ def register_user():
 
 	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 201
 
-@app.route(base_url + '/auth/login', methods=['POST'])
-def login_user_auth():
-
-	user_login = request.get_json()
-
-	query_login = "SELECT username, password from users WHERE username = '{}' and password = '{}' ".format(
-		user_login['username'], user_login['password'])
-
-	if not db.query(query_login):
-		return jsonify({"error": "invalid credentials"}), 401
-
-	access_token= create_access_token(identity= user_login['username'], expires_delta=token_expire)
-	refresh_token= create_access_token(identity=user_login['username'], expires_delta=token_expire)
-	resp = jsonify({"message": "Logged in successfully. Welcome to sendIT"})
-
-	set_access_cookies(resp, access_token)
-	set_refresh_cookies(resp, refresh_token)
-
-	return resp, 200
 
 @app.route(base_url + '/token/refresh', methods=['GET'])
 @jwt_refresh_token_required
@@ -190,10 +176,3 @@ def change_destination_by_user(parcel_id):
 	db.insert(update_dest, (data['destination'], parcel_id))
 
 	return jsonify({"updated destination to": data['destination']}), 201
-
-@app.route(base_url + '/auth/logout', methods=['GET'])
-@jwt_required
-def logout_revoke_jwt():
-    resp = jsonify({'logout': "Logged out of sendIT"})
-    unset_jwt_cookies(resp)
-    return resp, 200
