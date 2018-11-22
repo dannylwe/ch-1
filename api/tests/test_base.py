@@ -1,11 +1,14 @@
 from unittest import TestCase
 import json
 from api.views.app import app, base_url
+from api.database.dataBase import Database
+
 
 class BaseTest(TestCase):
 
 	def setUp(self):
 		self.app = app.test_client()
+		self.db = Database()
 
 	def test_register_user_fail(self):
 		response= self.app.post(base_url + '/auth/user',
@@ -88,8 +91,7 @@ class BaseTest(TestCase):
 			data=json.dumps({"username":"user2", "password":"abcdefghij"}),
 			content_type="application/json")
 
-	# def tearDown():
-	# 	db.teardown()
+
 
 
 	# def test_register_user_pass(self):

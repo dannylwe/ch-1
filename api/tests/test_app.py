@@ -4,14 +4,15 @@ from api.views.app import app
 from api.tests.test_base import BaseTest
 from api.database.dataBase import Database
 
-db = Database()
+
 
 # dao = BaseTest()
 
 class Test(BaseTest): #inherit basetst
 
-	def setUp(self):
-		self.app = app.test_client()  
+	# def setUp(self):
+	# 	self.app = app.test_client()
+	# 	self.db = Database() 
 
 	def test_token_refresh(self):
 		response = self.app.get('api/v1/token/refresh')
@@ -29,8 +30,9 @@ class Test(BaseTest): #inherit basetst
 		response = self.app.get('/api/v1/auth/logout')
 		self.assertEqual(response.status_code, 401)
 
-	# def tearDown():
-	# 	db.teardown()
+	def teardown():
+		super.db.teardown()
+
 
 
 
