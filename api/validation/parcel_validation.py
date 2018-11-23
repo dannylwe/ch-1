@@ -3,7 +3,7 @@ import re
 
 class Verify:
 
-	def error_handler(payload):
+	def error_handlers(payload):
 
 		post_parcel = payload
 

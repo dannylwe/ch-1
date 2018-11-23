@@ -40,7 +40,7 @@ def post_single_parcel():
 	parcel_info = request.get_json()
 	current_user = get_jwt_identity()
 
-	Verify.error_handler(parcel_info)
+	Verify.error_handlers(parcel_info)
 
 	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
 	username) VALUES (%s, %s, %s, %s, %s)"""
