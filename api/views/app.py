@@ -51,52 +51,30 @@ def post_single_parcel():
 
 	return jsonify({"added parcel": parcel_info['nickname']}), 201
 
-@app.route(base_url + '/parcels/<int:id>', methods=['GET'])
+@app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
-def gets_single_parcel_by_id(id):
+def gets_single_parcel_by_id(parcel_id):
 
-	if request.method == 'GET':
-		if type(id) != int:
-			abort(400, 'No string literal allowed')
+	current_user= get_jwt_identity()
 
-		result = [prod for prod in parcels if prod['id'] == id]
+	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}' " \
+	.format(current_user, parcel_id)
+	if not db.query(get_by_user):
+		return jsonify({"error":"unauthorized access"}), 401
 
-		if result == []:
-			return jsonify({"message": "nothing here"}), 200
-		return jsonify({"message": result}), 200
+	return jsonify({"item info": db.query(get_by_user)}), 200
 
 
-@app.route(base_url + '/users/<int:user_id>/parcels', methods=['GET'])
-@jwt_required
-def get_from_user(user_id):
 
-	result = []
-
-	for users in parcels:
-		if users['user_id'] == user_id:
-			result.append(users)
-
-	if result == []:
-		abort(404, 'No such user')
-	return jsonify({"message": result})
 
 @app.route(base_url + '/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
 def cancel_order(parcel_id):
 
-	post_parcel = request.get_json()
-
-	error_handler(post_parcel)
-
-	# for parcel in parcels:
-	# 	if parcel['id'] == id:
-	# 		parcel['status'] = "cancelled"
-	# 		return jsonify({"cancelled": parcel}), 201
-	# return jsonify({"message": "Id does not exist"}), 200 #404
-
 	current_user= get_jwt_identity()
 
-	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_user, parcel_id)
+	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}' " \
+	.format(current_user, parcel_id)
 	if not db.query(get_by_user):
 		return jsonify({"error":"unauthorized access"}), 401
 
@@ -106,7 +84,7 @@ def cancel_order(parcel_id):
 
 	db.insert(update_status, ("cancelled", parcel_id))
 
-	return jsonify({"cancelled": parcel_id}), 201
+	return jsonify({"cancelled item id: ": parcel_id}), 201
 
 
 @app.route(base_url + '/auth/user', methods=['POST'])
@@ -164,13 +142,6 @@ def parcel_status(parcel_id):
 	db.insert(update_status, (data['status'], parcel_id))
 
 	return jsonify({"status of parcel": data['status']}), 201
-
-
-@app.route(base_url + '/parcels/<int:parcel_id>/presentLocation', methods=['PUT'])
-@jwt_required
-def parcel_present_location():
-	#admin only
-	pass
 
 @app.route(base_url + '/parcels/<int:parcel_id>/destination', methods=['PUT'])
 @jwt_required
