@@ -3,10 +3,10 @@ import os
 
 class Database:
 
-	host = 'localhost'
-	database = 'admin'
-	user = 'admin'
-	password = 'admin'
+	host = 'ec2-23-21-201-12.compute-1.amazonaws.com'
+	database = 'd1c3rnkp9oer5r'
+	user = 'tqhmdglqvqqbqt'
+	password = 'd7db46e743f2ef535cc07bd74ff36d288c8832df121fb515a30b95911642b06f'
 
 	def __init__(self):
 

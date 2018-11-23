@@ -1,8 +1,6 @@
 from flask import Flask, abort, request, jsonify, abort, make_response
 from flask_cors import CORS
-from werkzeug.contrib.fixers import ProxyFix
 import datetime
-#import uuid remove unused
 from api.models.parcel_store import *
 from api.database.dataBase import Database
 from flask import Flask, jsonify, request
@@ -28,11 +26,14 @@ app.config['JWT_TOKEN_LOCATION'] = "cookies"
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
-app.wsgi_app = ProxyFix(app.wsgi_app)
 
 token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
+
+@app.route('/')
+def homepage():
+	return jsonify({"message":"Welcome to sendIT. Pleasure to be of service"}), 200
 
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
