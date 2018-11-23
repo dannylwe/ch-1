@@ -4,25 +4,49 @@
 
 sendIT
 
-Repo for challenge 2 Andela Level up. 
+This is sendIT. The API implemtation for challenge 3.   
+
+The endpoint you can use are shown below:
 
 # Enpoints
 
 |Request|Route|Desscription|
 |-------|-----|------------|
-|GET    |/hello|sanity check|
-|GET    |/parcels|get all parcels|
+|GET    |/|sanity check|
 |POST   |/parcels|post a single parcel|
-|GET    |/parcels/{id}|get parcel by id|
-|GET    |/users/{id}/parcels| Get parcels by user id|
-|PUT    |/parcels/{id}/cancel| cancel a single parcel delivery by Id|
+|GET    |/parcels/{parcel_id}|get parcel by id|
+|PUT    |/parcels/{parcel_id}/cancel| cancel a single parcel delivery by Id|
+|POST   |/auth/user| Register a user to sendIT|
+|GET    |/token/refresh | Refresh access token after expiry|
+|PUT    |/parcels/{parcel_id}/status| Admin can change status of parcel|
+|PUT    |/parcels/{parcel_id}/destination| User can change destination of parcel|
 
 To use clone repo:
 ```
 https://github.com/dannylwe/ch-1
 ```
 
-Hosted on: https://still-savannah-64363.herokuapp.com/api/v1
+After cloning the repo, change directory to the "develop branch"
+
+Run:
+
+```
+pip install -r requirements.txt
+```
+
+Afetr installing requirements, install postgres on your system and create two tables,  
+admin and testing.
+
+After installation setup; to to run the application:
+
+```
+python run.py
+```
+
+Note:The application uses python 3.5.2. Have python3 installed on your system to avoid inconviences.
+
+OR you can visit the link below to try it out.
+Hosted on: https://challenge3andela.herokuapp.com/api/v1
 
 # Author
 
