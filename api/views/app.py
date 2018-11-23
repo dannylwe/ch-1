@@ -1,6 +1,5 @@
 from flask import Flask, abort, request, jsonify, abort, make_response
 from flask_cors import CORS
-from werkzeug.contrib.fixers import ProxyFix
 import datetime
 #import uuid remove unused
 from api.models.parcel_store import *
@@ -13,11 +12,13 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
 from api.validation.parcel_validation import Verify
 from api.validation.user_auth import Auth_user
 from api.views import cred_auth_users
+from api.views import parcel_view
 
 app = Flask(__name__)
 db = Database()
 db.create_table()
 app.register_blueprint(cred_auth_users.blueprint)
+app.register_blueprint(parcel_view.Parcel)
 
 cors = CORS(app)
 jwt = JWTManager(app)
@@ -28,7 +29,6 @@ app.config['JWT_TOKEN_LOCATION'] = "cookies"
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
-app.wsgi_app = ProxyFix(app.wsgi_app)
 
 token_expire = datetime.timedelta(days=0.1)
 
@@ -51,34 +51,16 @@ def post_single_parcel():
 
 	return jsonify({"added parcel": parcel_info['nickname']}), 201
 
-@app.route(base_url + '/parcels/<int:id>', methods=['GET'])
+@app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
 def gets_single_parcel_by_id(id):
 
-	if request.method == 'GET':
-		if type(id) != int:
-			abort(400, 'No string literal allowed')
+	get_by_id = "SELECT * from parcel WHERE admin = True and parcel_id= '{}'".format(parcel_id)
 
-		result = [prod for prod in parcels if prod['id'] == id]
+	if not db.query(get_by_id):
+		return jsonify({"error": "not found"}), 404
 
-		if result == []:
-			return jsonify({"message": "nothing here"}), 200
-		return jsonify({"message": result}), 200
-
-
-@app.route(base_url + '/users/<int:user_id>/parcels', methods=['GET'])
-@jwt_required
-def get_from_user(user_id):
-
-	result = []
-
-	for users in parcels:
-		if users['user_id'] == user_id:
-			result.append(users)
-
-	if result == []:
-		abort(404, 'No such user')
-	return jsonify({"message": result})
+	return jsonify({"item": get_by_id}), 200
 
 @app.route(base_url + '/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
@@ -117,6 +99,8 @@ def register_user():
 
 	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
 	 user_info['username'])
+	print(query_info)
+	print(db.query(query_check_username))
 
 	if db.query(query_check_username):
 		return jsonify({"error": "usename Already Exists!"}), 400
@@ -156,13 +140,6 @@ def parcel_status(parcel_id):
 	db.insert(update_status, (data['status'], parcel_id))
 
 	return jsonify({"status of parcel": data['status']}), 201
-
-
-@app.route(base_url + '/parcels/<int:parcel_id>/presentLocation', methods=['PUT'])
-@jwt_required
-def parcel_present_location():
-	#admin only
-	pass
 
 @app.route(base_url + '/parcels/<int:parcel_id>/destination', methods=['PUT'])
 @jwt_required
