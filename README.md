@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dannylwe/ch-1.svg?branch=develop)](https://travis-ci.org/dannylwe/ch-1) [![Coverage Status](https://coveralls.io/repos/github/dannylwe/ch-1/badge.svg?branch=develop)](https://coveralls.io/github/dannylwe/ch-1?branch=develop)
+[![Build Status](https://travis-ci.org/dannylwe/ch-1.svg?branch=develop)](https://travis-ci.org/dannylwe/ch-1) [![Coverage Status](https://coveralls.io/repos/github/dannylwe/ch-1/badge.svg?branch=develop)](https://coveralls.io/github/dannylwe/ch-1?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/50ce4c572919c06b9a0f/maintainability)](https://codeclimate.com/github/dannylwe/ch-1/maintainability)
 
 # Project
 
