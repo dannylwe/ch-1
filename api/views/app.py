@@ -65,8 +65,6 @@ def gets_single_parcel_by_id(parcel_id):
 	return jsonify({"item info": db.query(get_by_user)}), 200
 
 
-
-
 @app.route(base_url + '/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
 def cancel_order(parcel_id):
