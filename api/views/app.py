@@ -31,7 +31,7 @@ token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
 
-@app.route(base_url + '/')
+@app.route('/')
 def homepage():
 	return jsonify({"Welcome to sendIT. Pleasure to be of service"})
 
