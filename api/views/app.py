@@ -11,13 +11,13 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     set_refresh_cookies, unset_jwt_cookies)
 from api.validation.parcel_validation import Verify
 from api.validation.user_auth import Auth_user
-from api.views import cred_auth_users
+from api.views.cred_auth_users import blueprint
 from api.views import parcel_view
 
 app = Flask(__name__)
 db = Database()
 db.create_table()
-app.register_blueprint(cred_auth_users.blueprint)
+app.register_blueprint(blueprint)
 app.register_blueprint(parcel_view.Parcel)
 
 cors = CORS(app)

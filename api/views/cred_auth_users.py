@@ -12,7 +12,7 @@ db = Database()
 
 base_url= '/api/v1'
 
-blueprint = Blueprint("user_login", __name__)
+blueprint = Blueprint("user_login", __name__, template_folder='views')
 
 @blueprint.route(base_url + '/auth/login', methods=['POST'])
 def login_user_auth():
