@@ -1,4 +1,5 @@
 import psycopg2
+from psycopg2.extras import RealDictCursor
 import os
 
 class Database:
@@ -16,7 +17,7 @@ class Database:
 		password = self.password
 		self.conn = psycopg2.connect(host=str(self.host), database=str(self.database),
 		user= str(self.user), password=str(self.password))
-		self.cursor = self.conn.cursor()
+		self.cursor = self.conn.cursor(cursor_factory=RealDictCursor)
 
 	def query(self, query_string):
 		self.cursor.execute(query_string)
