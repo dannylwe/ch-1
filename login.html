@@ -70,13 +70,16 @@
 			
 			fetch(url, {
 			    method: 'POST',
-			    headers:{
+				redirect: 'follow',
+			    headers: new Headers ({
 			        Accept: "application/json",
 			        'Content-Type': "application/json; charset=UTF-8",
 					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Methods': '*',
+					'Access-Control-Expose-Headers': 'Content-Length, X-JSON'
 		
-			    },
-			    body:JSON.stringify(login)
+			    }),
+			    body:login
 			}).then(res => res.text())
 			.then(print => console.log(print))
 			.then(data => console.log("succeeded with post " + data))
