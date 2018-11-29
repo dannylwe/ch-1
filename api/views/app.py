@@ -1,5 +1,5 @@
 from flask import Flask, abort, request, jsonify, abort, make_response
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import datetime
 from api.models.parcel_store import *
 from api.database.dataBase import Database
