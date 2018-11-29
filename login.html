@@ -11,7 +11,7 @@
 	</header>
 
 	<div class="login">
-		<form name="logins">
+		<form name="logins" id="login-form-1">
 			<div class="log-email">
 				<label>Email</label>
 				<br>
@@ -38,23 +38,49 @@
 			var Email = document.getElementById("eml").value;
 			var Password = document.getElementById("pass").value;
 
-			if ((Email == "admin@admin.com") && (Password == "admin")) {
+			// if ((Email == "admin@admin.com") && (Password == "admin")) {
 				
-				window.location.href = "loading.html";
+			// 	window.location.href = "loading.html";
 
-			} else if ((Email == "user@user.com") && (Password == "user")) {
+			// } else if ((Email == "user@user.com") && (Password == "user")) {
 
-				window.location.href = "parcel_order.html";
+			// 	window.location.href = "parcel_order.html";
 
-			} else {
+			// } else {
 
-				alert("Incorrect email/password");
-				return false;
-			}
+			// 	alert("Incorrect email/password");
+			// 	return false;
+			// }
+			const url = "https://still-savannah-64363.herokuapp.com/api/v1/auth/login"
 
+			const auth = {
+				"email": "user1@gmail.com",
+				"password": "abcdefgh",
+				"handphone": 772504771,
+				"username": "danny1"
+			};
+
+			const login = {
+				"username": "danny1",
+				"password": "abcdefgh"
+			};
+
+			//console.log(login);
+			//console.log(auth);
 			
-			
-		}
+			fetch(url, {
+			    method: 'POST',
+			    headers:{
+			        Accept: "application/json",
+			        'Content-Type': "application/json; charset=UTF-8",
+					'Access-Control-Allow-Origin': '*'
+			    },
+			    body:login
+			}).then(res => res.text())
+			.then(print => console.log(print))
+			.then(data => console.log("succeeded with post " + data))
+			.catch(err => console.log(err));
+		};
 
 	</script>
 
