@@ -2,7 +2,8 @@ from flask import Blueprint, request, jsonify
 from .app import (JWTManager, jwt_required, create_access_token,
 jwt_refresh_token_required, create_refresh_token,
 get_jwt_identity, set_access_cookies,
-set_refresh_cookies, unset_jwt_cookies, CORS)
+set_refresh_cookies, unset_jwt_cookies)
+from flask_cors import CORS
 from api.database.dataBase import Database
 import datetime
 
@@ -14,7 +15,7 @@ base_url= '/api/v1'
 
 blueprint = Blueprint("user_login", __name__)
 
-CORS(blueprint)
+CORS(blueprint, supports_credentials = True)
 
 @blueprint.route(base_url + '/auth/login', methods=['POST'])
 
