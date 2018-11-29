@@ -26,6 +26,7 @@ app.config['JWT_TOKEN_LOCATION'] = "cookies"
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 token_expire = datetime.timedelta(days=0.1)
 
