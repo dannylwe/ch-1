@@ -32,10 +32,6 @@ token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
 
-@app.route('/')
-def homepage():
-	return jsonify({"message":"Welcome to sendIT. Pleasure to be of service"}), 200
-
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
 def post_single_parcel():

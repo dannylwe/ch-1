@@ -46,3 +46,7 @@ def logout_revoke_jwt():
     resp = jsonify({'logout': "Logged out of sendIT"})
     unset_jwt_cookies(resp)
     return resp, 200
+
+@blueprint.route('/')
+def homepage():
+	return jsonify({"message":"Welcome to sendIT. Pleasure to be of service"}), 200
