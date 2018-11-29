@@ -17,7 +17,7 @@ db = Database()
 db.create_table()
 app.register_blueprint(cred_auth_users.blueprint)
 
-cors = CORS(app)
+CORS(app)
 jwt = JWTManager(app)
 
 app.config['DEBUG'] = True
