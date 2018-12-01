@@ -6,6 +6,7 @@ set_refresh_cookies, unset_jwt_cookies)
 from flask_cors import CORS, cross_origin
 from api.database.dataBase import Database
 import datetime
+from api.validation.user_auth import Auth_user
 
 token_expire = datetime.timedelta(days=0.1)
 
