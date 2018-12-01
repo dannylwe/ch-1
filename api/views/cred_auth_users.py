@@ -19,8 +19,6 @@ blueprint = Blueprint("user_login", __name__)
 CORS(blueprint)
 
 @blueprint.route(base_url + '/auth/login', methods=['POST'])
-# @cross_origin(supports_credentials=True, methods=['POST', 'OPTIONS'], 
-# headers=['content-type', 'auth'])
 def login_user_auth():
 
 	user_login = request.get_json()
@@ -34,8 +32,6 @@ def login_user_auth():
 	access_token= create_access_token(identity= user_login['username'], expires_delta=token_expire)
 	refresh_token= create_access_token(identity=user_login['username'], expires_delta=token_expire)
 	resp = jsonify({"message": "Logged in successfully. Welcome to sendIT"})
-
-	# resp.headers.add('Access-Control-Allow-Origin', '*')
 
 	set_access_cookies(resp, access_token)
 	set_refresh_cookies(resp, refresh_token)
