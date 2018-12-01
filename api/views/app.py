@@ -1,5 +1,5 @@
 from flask import Flask, abort, request, jsonify, abort, make_response
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import datetime
 from api.models.parcel_store import *
 from api.database.dataBase import Database
@@ -17,7 +17,7 @@ db = Database()
 db.create_table()
 app.register_blueprint(cred_auth_users.blueprint)
 
-CORS(app)
+cors = CORS(app)
 jwt = JWTManager(app)
 
 app.config['DEBUG'] = True
@@ -30,6 +30,10 @@ app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
+
+@app.route('/')
+def homepage():
+	return jsonify({"message":"Welcome to sendIT. Pleasure to be of service"}), 200
 
 @app.route(base_url + '/parcels', methods=['POST'])
 @jwt_required
@@ -80,6 +84,32 @@ def cancel_order(parcel_id):
 	db.insert(update_status, ("cancelled", parcel_id))
 
 	return jsonify({"cancelled item id: ": parcel_id}), 201
+
+
+@app.route(base_url + '/auth/user', methods=['POST'])
+def register_user():
+
+	user_info = request.get_json()
+
+	Auth_user.verify(user_info)
+
+	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
+	%s, %s, %s)"""
+
+	query_check_username = "SELECT * FROM users WHERE username = '{}' ".format(user_info['username'])
+
+	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
+	 user_info['username'])
+	print(query_info)
+	print(db.query(query_check_username))
+
+	if db.query(query_check_username):
+		return jsonify({"error": "usename Already Exists!"}), 400
+
+	db.insert(query_sql, query_info)
+
+	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 201
+
 
 @app.route(base_url + '/token/refresh', methods=['GET'])
 @jwt_refresh_token_required
