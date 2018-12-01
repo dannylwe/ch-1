@@ -19,8 +19,8 @@ blueprint = Blueprint("user_login", __name__)
 CORS(blueprint)
 
 @blueprint.route(base_url + '/auth/login', methods=['POST'])
-@cross_origin(supports_credentials=True, methods=['POST', 'OPTIONS'], 
-headers=['content-type', 'auth'])
+# @cross_origin(supports_credentials=True, methods=['POST', 'OPTIONS'], 
+# headers=['content-type', 'auth'])
 def login_user_auth():
 
 	user_login = request.get_json()
@@ -61,7 +61,7 @@ def register_user():
 	print(db.query(query_check_username))
 
 	if db.query(query_check_username):
-		return jsonify({"error": "usename Already Exists!"}), 400
+		return jsonify({"error": "username Already Exists!"}), 400
 
 	db.insert(query_sql, query_info)
 
