@@ -71,14 +71,14 @@
 			fetch(url, {
 			    method: 'POST',
 				redirect: 'follow',
-			    headers: new Headers ({
+			    headers: {
 			        Accept: "application/json",
-			        'Content-Type': "application/json; charset=UTF-8",
+			        'content-type': "application/json; charset=UTF-8",
 					'Access-Control-Allow-Origin': '*',
 					'Access-Control-Allow-Methods': '*',
 					'Access-Control-Expose-Headers': 'Content-Length, X-JSON'
 		
-			    }),
+			    },
 			    body:login
 			}).then(res => res.text())
 			.then(print => console.log(print))
