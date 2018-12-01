@@ -3,7 +3,7 @@ from .app import (JWTManager, jwt_required, create_access_token,
 jwt_refresh_token_required, create_refresh_token,
 get_jwt_identity, set_access_cookies,
 set_refresh_cookies, unset_jwt_cookies)
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from api.database.dataBase import Database
 import datetime
 
@@ -15,10 +15,11 @@ base_url= '/api/v1'
 
 blueprint = Blueprint("user_login", __name__)
 
-CORS(blueprint, supports_credentials = True)
+CORS(blueprint)
 
 @blueprint.route(base_url + '/auth/login', methods=['POST'])
-
+@cross_origin(supports_credentials=True, methods=['POST', 'OPTIONS'], 
+headers=['content-type', 'auth'])
 def login_user_auth():
 
 	user_login = request.get_json()
