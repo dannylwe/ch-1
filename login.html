@@ -35,13 +35,18 @@
 	<script>
 
 		function validation() {
+			var username = document.getElementById("eml").value;
+			var password = document.getElementById("pass").value;
+
 			const loginSend = "https://challenge3andela.herokuapp.com/api/v1/auth/login"
 			const signUp = "https://challenge3andela.herokuapp.com/api/v1/auth/user"
 
 			const loginDetails = {
-				"username": "danny1",
-				"password": "abcdefgh"
+				"username": username,
+				"password": password
 			};
+			
+			console.log(username, password);
 
 			function loginFetch(){
 				fetch(loginSend, {
@@ -51,81 +56,19 @@
 						'Content-Type': "application/json; charset=UTF-8",
 					},
 					body:JSON.stringify(loginDetails)
-				}).then(res => res.text())
-				.then(response => console.log(response))
-				.catch(err => console.log(err));
+				}).then(res => res.json())
+				.then(response => {if (response.message == "Logged in successfully. Welcome to sendIT"){
+					console.log("html_01_success");
+					window.location.href = "parcel_order.html"
+				} else if (response.error == "invalid credentials"){
+					alert(response.error)
+				}}).catch(err => console.log(err));
 			};
 
 			loginFetch();
-			// var Email = document.getElementById("eml").value;
-			// var Password = document.getElementById("pass").value;
-
-			// console.log(Email, Password)
-
-			// const loginSend = "https://still-savannah-64363.herokuapp.com/api/v1/auth/login";
-
-			// const loginDetails = {
-			// 	"username": Email,
-			// 	"password": Password
-			// };
-
-			// loginFetch();
-		
-
-			// function loginFetch(){
-			// 	fetch(loginSend, {
-			// 		method: 'POST',
-			// 		headers:{
-			// 			Accept: "application/json",
-			// 			'Content-Type': "application/json; charset=UTF-8",
-			// 			'Access-Control-Allow-Origin': '*',
-			// 			'Access-Control-Allow-Credentials': true,
-			// 			'Access-Control-Allow-Methods': 'POST',
-					
-			// 		},
-			// 		body:JSON.stringify(loginDetails),
-			// 		mode: 'cors',
-			// 		//credentials: 'include', 
-			// 	}).then(res => res.text())
-			// 	.then(response => console.log(response))
-			// 	.catch(err => console.log(err));
-		};
-		//loginFetch();
-
-
-			// if ((Email == "admin@admin.com") && (Password == "admin")) {
-				
-			// 	window.location.href = "loading.html";
-
-			// } else if ((Email == "user@user.com") && (Password == "user")) {
-
-			// 	window.location.href = "parcel_order.html";
-
-			// } else {
-
-			// 	alert("Incorrect email/password");
-			// 	return false;
-			// };
 			
-
-			// const auth = {
-			// 	"email": "user1@gmail.com",
-			// 	"password": "abcdefgh",
-			// 	"handphone": 772504771,
-			// 	"username": "danny1"
-			// };
-
-			// const login = {
-			// 	"username": "danny1",
-			// 	"password": "abcdefgh"
-			// };
-
-			//console.log(login);
-			//console.log(auth);
-		// };
-
+		};
 		
-
 	</script>
 
 </body>
