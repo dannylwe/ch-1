@@ -13,9 +13,9 @@
 	<div class="login">
 		<form name="logins" id="login-form-1">
 			<div class="log-email">
-				<label>Email</label>
+				<label>Username</label>
 				<br>
-				<input type="email" name="Email" id="eml" placeholder="please enter password" required>
+				<input type="text" name="Email" id="eml" placeholder="email/username" required>
 			</div>
 			
 			<br>
@@ -35,8 +35,63 @@
 	<script>
 
 		function validation() {
-			var Email = document.getElementById("eml").value;
-			var Password = document.getElementById("pass").value;
+			const loginSend = "https://challenge3andela.herokuapp.com/api/v1/auth/login"
+			const signUp = "https://challenge3andela.herokuapp.com/api/v1/auth/user"
+
+			const loginDetails = {
+				"username": "danny1",
+				"password": "abcdefgh"
+			};
+
+			function loginFetch(){
+				fetch(loginSend, {
+					method: 'POST',
+					headers:{
+						Accept: "application/json",
+						'Content-Type': "application/json; charset=UTF-8",
+					},
+					body:JSON.stringify(loginDetails)
+				}).then(res => res.text())
+				.then(response => console.log(response))
+				.catch(err => console.log(err));
+			};
+
+			loginFetch();
+			// var Email = document.getElementById("eml").value;
+			// var Password = document.getElementById("pass").value;
+
+			// console.log(Email, Password)
+
+			// const loginSend = "https://still-savannah-64363.herokuapp.com/api/v1/auth/login";
+
+			// const loginDetails = {
+			// 	"username": Email,
+			// 	"password": Password
+			// };
+
+			// loginFetch();
+		
+
+			// function loginFetch(){
+			// 	fetch(loginSend, {
+			// 		method: 'POST',
+			// 		headers:{
+			// 			Accept: "application/json",
+			// 			'Content-Type': "application/json; charset=UTF-8",
+			// 			'Access-Control-Allow-Origin': '*',
+			// 			'Access-Control-Allow-Credentials': true,
+			// 			'Access-Control-Allow-Methods': 'POST',
+					
+			// 		},
+			// 		body:JSON.stringify(loginDetails),
+			// 		mode: 'cors',
+			// 		//credentials: 'include', 
+			// 	}).then(res => res.text())
+			// 	.then(response => console.log(response))
+			// 	.catch(err => console.log(err));
+		};
+		//loginFetch();
+
 
 			// if ((Email == "admin@admin.com") && (Password == "admin")) {
 				
@@ -51,40 +106,25 @@
 			// 	alert("Incorrect email/password");
 			// 	return false;
 			// };
-			const url = "https://still-savannah-64363.herokuapp.com/api/v1/auth/login"
+			
 
-			const auth = {
-				"email": "user1@gmail.com",
-				"password": "abcdefgh",
-				"handphone": 772504771,
-				"username": "danny1"
-			};
+			// const auth = {
+			// 	"email": "user1@gmail.com",
+			// 	"password": "abcdefgh",
+			// 	"handphone": 772504771,
+			// 	"username": "danny1"
+			// };
 
-			const login = {
-				"username": "danny1",
-				"password": "abcdefgh"
-			};
+			// const login = {
+			// 	"username": "danny1",
+			// 	"password": "abcdefgh"
+			// };
 
 			//console.log(login);
 			//console.log(auth);
-			
-			fetch(url, {
-			    method: 'POST',
-				redirect: 'follow',
-			    headers: {
-			        Accept: "application/json",
-			        'content-type': "application/json; charset=UTF-8",
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Methods': '*',
-					'Access-Control-Expose-Headers': 'Content-Length, X-JSON'
+		// };
+
 		
-			    },
-			    body:login
-			}).then(res => res.text())
-			.then(print => console.log(print))
-			.then(data => console.log("succeeded with post " + data))
-			.catch(err => console.log(err));
-		};
 
 	</script>
 
