@@ -14,7 +14,7 @@
 	<div class= "sign-up" id="up-sign">
 		<h1>Sign Up</h1>
 		<p>Sign up to the best parcel delivery in the world</p>	
-		<form onclick="send()" class="submission-form">
+		<form class="submission-form">
 			<label>Name</label>
 			<input type="text" id="Name" placeholder="Full names" required>
 			<br>
@@ -34,7 +34,7 @@
 			<input type="tel" id="handphone" placeholder="phone number" required>
 			<br>
 			<input type="button" id="submit-sign-up" value="Submit" class="button-btn" 
-			id="btn-signup" >
+			id="btn-signup" onclick="send()">
 		</form>
 
 	</div>
@@ -67,29 +67,36 @@
 				return process.exit(1);
 			}
 			
-			var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-			var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{7,})");
+			// var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+			// var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{7,})");
 			
-			function tPassword(password){
-				if(strongRegex.test(password)){
-					console.log("str psw");
-				} else if (mediumRegex.test(password)){
-					console.log("mdm psw");
-				} else {
-					console.log("gg");
-					alert("enter a password with 1 uppercase, special, integer of atleast lenght 7");
-					return process.exit(1);
-				}
-			}
+			// function tPassword(password){
+			// 	if(strongRegex.test(password)){
+			// 		console.log("str psw");
+			// 	} else if (mediumRegex.test(password)){
+			// 		console.log("mdm psw");
+			// 	} else {
+			// 		console.log("gg");
+			// 		alert("enter a password with 1 uppercase, special, integer of atleast lenght 7");
+			// 		return process.exit(1);
+			// 	}
+			// }
 			
 			//need to change backend password column to allow specials
 			//tPassword(password)
 
+			// const signDetails = {
+			// 	"email": email,
+			// 	"password": password,
+			// 	"handphone": parseInt(phone), //772504771
+			// 	"username": username
+			// };
+
 			const signDetails = {
 				"email": "user1@gmail.com",
-				"password": password,
+				"password": "abcdefgh",
 				"handphone": 772504771,
-				"username": username
+				"username": "danny1"
 			};
 			
 			signupFetch();
@@ -103,7 +110,11 @@
                 },
                 body:JSON.stringify(signDetails)
             }).then(res => res.text())
-            .then(response => console.log(response))
+			.then(response => {if (!response.ok)
+				{console.log("gg2", response); alert(response)} else{
+					window.location.href = "login.html"
+				}
+			})
 			.catch(err => console.log(err));
 			}
 
