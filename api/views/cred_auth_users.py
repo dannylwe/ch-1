@@ -61,13 +61,13 @@ def register_user():
 
 	db.insert(query_sql, query_info)
 
-	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 201
+	return jsonify({"message": "Succesfully registerd to sendIT"}), 201
 
 
 @blueprint.route(base_url + '/auth/logout', methods=['GET'])
 @jwt_required
 def logout_revoke_jwt():
-    resp = jsonify({'logout': "Logged out of sendIT"})
+    resp = jsonify({"message": "Logged out of sendIT"})
     unset_jwt_cookies(resp)
     return resp, 200
 
