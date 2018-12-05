@@ -31,22 +31,32 @@ token_expire = datetime.timedelta(days=0.1)
 
 base_url= '/api/v1'
 
-@app.route(base_url + '/parcels', methods=['POST'])
+@app.route(base_url + '/parcels', methods=['POST', 'GET'])
 @jwt_required
 def post_single_parcel():
-	parcel_info = request.get_json()
-	current_user = get_jwt_identity()
+	if request.method == 'POST':
+		parcel_info = request.get_json()
+		current_user = get_jwt_identity()
 
-	Verify.error_handler(parcel_info)
+		Verify.error_handler(parcel_info)
 
-	query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
-	username) VALUES (%s, %s, %s, %s, %s)"""
-	query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
-	 parcel_info['weight'], current_user)
+		query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
+		username) VALUES (%s, %s, %s, %s, %s)"""
+		query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
+		parcel_info['weight'], current_user)
 
-	db.insert(query_sql, query_info)
+		db.insert(query_sql, query_info)
 
-	return jsonify({"added parcel": parcel_info['nickname']}), 201
+		return jsonify({"added parcel": parcel_info['nickname']}), 201
+
+	else:
+		current_user = get_jwt_identity()
+		query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}'".format(current_user)
+
+		if not db.query(query_sql_by_user):
+			return jsonify({"error":"unauthorized access"}), 401
+
+		return jsonify({"item info": db.query(query_sql_by_user)}), 200
 
 @app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
