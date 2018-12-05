@@ -45,27 +45,22 @@
 
 	<script>
 		function send(){
-			const signUp = "https://challenge3andela.herokuapp.com/api/v1/auth/user"
 			
-			var email = document.getElementById("Email").value;
-			var username = document.getElementById("username").value;
-			var password = document.getElementById("psw").value;
-			var cpassword = document.getElementById("c-psw").value;
-			var phone = document.getElementById("handphone").value;
-			var name = document.getElementById("Name").value;
-			console.log(email, username, password, phone, name);
+			
+			
+			// console.log(email, username, password, phone, name);
 
-			if (password == username) {
-				console.log("psw err");
-				alert("password cannot be the same as username");
-				return process.exit(1);
-			}
+			// if (password == username) {
+			// 	console.log("psw err");
+			// 	alert("password cannot be the same as username");
+			// 	return process.exit(1);
+			// }
 			
-			if (password != cpassword){
-				console.log("no mtc");
-				alert("passwords do not match");
-				return process.exit(1);
-			}
+			// if (password != cpassword){
+			// 	console.log("no mtc");
+			// 	alert("passwords do not match");
+			// 	return process.exit(1);
+			// }
 			
 			// var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 			// var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{7,})");
@@ -91,15 +86,24 @@
 			// 	"handphone": parseInt(phone), //772504771
 			// 	"username": username
 			// };
+			const signUp = "https://challenge3andela.herokuapp.com/api/v1/auth/user"
+
+			var email = document.getElementById("Email").value;
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("psw").value;
+			var cpassword = document.getElementById("c-psw").value;
+			var phone = document.getElementById("handphone").value;
+			var name = document.getElementById("Name").value;
 
 			const signDetails = {
-				"email": "user1@gmail.com",
-				"password": "abcdefgh",
-				"handphone": 772504771,
-				"username": "danny1"
+				"email": email,
+				"password": password,
+				"handphone": parseInt(phone),
+				"username": username,
 			};
 			
 			signupFetch();
+			console.log(signDetails.username);
 
 			function signupFetch(){
             fetch(signUp, {
