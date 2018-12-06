@@ -13,7 +13,8 @@
 		<a href="pending.html">Orders Pending</a>
 		<a href="about.html">Contact Us</a>
 	</div>
-		
+	
+	<!-- intro top page -->
 	<div class="user-dash-intro" style="padding-left:16px">
 		<h2>Welcome to sendIT parcel delivery</h2>
 		<p>Kindly fill out the form below to place delivery order</p>
@@ -23,19 +24,20 @@
 	<div class="user-dash" id="usr-dash">
 		<table>
 			<tr><h2>Parcel Details</h2></tr> 
-			<form action="parcel_confirm.html" class="parcel-confirm">
-				<tr><td><label>Height</label></td><td><input type="text" name="p-height" placeholder="height"></td></tr>
-				<tr><td><label>Weight</label></td><td><input type="text" name="p-widith" placeholder="estimated weight (in Kg)"></td></tr>
-				<tr><td><label>Nickname</label></td><td><input type="text" name="p-nic" placeholder="package Nickname"></td></tr>   
-				<tr><td><label>Destination</label></td><td><input type="text" name="p-destination" placeholder="dest. of package"></td></tr>
-				<tr><td><label>Pickup location</label></td><td><input type="text" name="p-pickup" placeholder="pickup location"></td></tr>   
+			<form class="parcel-confirm">
+				<tr><td><label>Height</label></td><td><input type="text" id="p-height" placeholder="height"></td></tr>
+				<tr><td><label>Weight</label></td><td><input type="text" id="p-widith" placeholder="estimated weight (in Kg)"></td></tr>
+				<tr><td><label>Nickname</label></td><td><input type="text" id="p-nic" placeholder="package Nickname"></td></tr>   
+				<tr><td><label>Destination</label></td><td><input type="text" id="p-destination" placeholder="dest. of package"></td></tr>
+				<tr><td><label>Pickup location</label></td><td><input type="text" id="p-pickup" placeholder="pickup location"></td></tr>   
 				<tr><td><span><i>or drop at nearest sendIT location</i><input type="checkbox" name="p-check"></span></td></tr>
-				<tr><td><input type="submit" name="p-submit" value="submit" class="button-btn"></td></tr>
+				<tr><td><input type="button" name="p-submit" value="submit" class="button-btn" onclick="return parcel();"></td></tr>
 				
 			</form>
 		</table>
 		
 	</div>
-
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="javascript/parcelOrder.js"></script>
 </body>
 </html>
