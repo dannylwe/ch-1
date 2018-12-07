@@ -18,17 +18,22 @@ function validation() {
             headers:{
                 Accept: "application/json",
                 'Content-Type': "application/json; charset=UTF-8",
+                credentials: 'same-origin'
             },
-            body:JSON.stringify(loginDetails)
+            body:JSON.stringify(loginDetails),
+            
         }).then(res => res.json())
         .then(response => {if (response.message == "Logged in successfully. Welcome to sendIT"){
-            console.log("html_01_success");
-            window.location.href = "parcel_order.html"
+            console.log(response);
+            window.location.replace("parcel_order.html")
         } else if (response.error == "invalid credentials"){
             alert(response.error)
         }}).catch(err => console.log(err));
     };
 
+    console.log("from fetch");
+    //axios.post(loginSend, loginDetails).then(res=>console.log(res)).catch(err=>console.log(err));
     loginFetch();
+    
     
 };
