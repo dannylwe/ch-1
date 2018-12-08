@@ -36,6 +36,8 @@ def login_user_auth():
 	set_access_cookies(resp, access_token)
 	set_refresh_cookies(resp, refresh_token)
 
+	#update headers
+	resp.headers['Acess-Control-Allow-Credentials'] = True
 	return resp, 200
 
 
