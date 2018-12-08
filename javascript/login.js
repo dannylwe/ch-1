@@ -15,10 +15,11 @@ function validation() {
     function loginFetch(){
         fetch(loginSend, {
             method: 'POST',
+            credentials: 'include',
             headers:{
                 Accept: "application/json",
                 'Content-Type': "application/json; charset=UTF-8",
-                credentials: 'include'
+                
             },
             body:JSON.stringify(loginDetails),
             

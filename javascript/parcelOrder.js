@@ -19,26 +19,33 @@ function parcel(){
        }
        console.log(parcelDetails.height, weight, nickname);
 
+       if (parcelDetails.destination == parcelDetails.pickup){
+           alert("pickup and destination can not be the same");
+        //    process.exit(1);
+            return;
+        
+       }
+
        function postAxios(){
-        //document.cookie="access_token_cookie=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDQyNDc4NjgsIm5iZiI6MTU0NDI0Nzg2OCwianRpIjoiNDNiODhiZmEtYjQzYy00NjVmLWEzOTQtODM3NDNjYzE5MDE5IiwiZXhwIjoxNTQ0MjU2NTA4LCJpZGVudGl0eSI6ImRhbm55MSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.0cBvn5ScZZdYxBIkGLC5JuwqcHaddANzrzW1Be42XTs"
-        axios.post(postParcel, parcelDetails, {withCredentials: true}).then(res=>console.log(res)).catch(err=>console.log(err));
+       
+        axios.post(postParcel, parcelDetails, {withCredentials: true})
+        .then(res=>{if(res.statusText == "CREATED"){alert("added parcel:  " + parcelDetails.nickname)}})
+        .catch(err=>alert("something went wrong."))
        }
 
        postAxios();
       
-       fetch(postParcel, {
-            method: 'POST',
-            headers:{
-                Accept: "application/json",
-                'Content-Type': "application/json; charset=UTF-8",
-                credentials: 'include'
-            },
-            body:JSON.stringify(parcelDetails),
+    //    fetch(postParcel, {
+    //         method: 'POST',
+    //         credentials: 'include',
+    //         headers:{
+    //             Accept: "application/json",
+    //             'Content-Type': "application/json; charset=UTF-8",
+    //         },
+    //         body:JSON.stringify(parcelDetails),
             
-        }).then(response=>console.log(response.json())).catch(err=>console.log(err))
+    //     }).then(response=>console.log(response.text())).then(gg=>{if(!gg.ok){alert(gg)}}).catch(err=>alert(err))
         };
-
-        
 
     getstuff();
     
