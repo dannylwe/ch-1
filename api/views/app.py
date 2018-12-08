@@ -17,7 +17,7 @@ db = Database()
 db.create_table()
 app.register_blueprint(cred_auth_users.blueprint)
 
-CORS(app)
+CORS(app, supports_credentials=True)
 jwt = JWTManager(app)
 
 app.config['DEBUG'] = True
@@ -58,7 +58,7 @@ def post_single_parcel():
 
 		#new change
 		resp = jsonify({"item info": db.query(query_sql_by_user)})
-		resp.headers['Acess-Control-Allow-Credentials'] = True
+		#resp.headers['Acess-Control-Allow-Credentials'] = True
 		return resp, 200
 		#return jsonify({"item info": db.query(query_sql_by_user)}), 200
 

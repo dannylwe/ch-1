@@ -16,7 +16,7 @@ base_url= '/api/v1'
 
 blueprint = Blueprint("user_login", __name__)
 
-CORS(blueprint)
+CORS(blueprint, supports_credentials=True)
 
 @blueprint.route(base_url + '/auth/login', methods=['POST'])
 def login_user_auth():
@@ -37,7 +37,7 @@ def login_user_auth():
 	set_refresh_cookies(resp, refresh_token)
 
 	#update headers
-	resp.headers['Acess-Control-Allow-Credentials'] = True
+	#resp.headers['Acess-Control-Allow-Credentials'] = True
 	return resp, 200
 
 
