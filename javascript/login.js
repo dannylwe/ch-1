@@ -18,7 +18,7 @@ function validation() {
             headers:{
                 Accept: "application/json",
                 'Content-Type': "application/json; charset=UTF-8",
-                credentials: 'same-origin'
+                credentials: 'include'
             },
             body:JSON.stringify(loginDetails),
             
@@ -29,11 +29,16 @@ function validation() {
         } else if (response.error == "invalid credentials"){
             alert(response.error)
         }}).catch(err => console.log(err));
+        
     };
 
+  
     console.log("from fetch");
+    //document.cookie="access_token_cookie=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDQyMTY3NjIsIm5iZiI6MTU0NDIxNjc2MiwianRpIjoiYTVkMmIzN2MtZWFjNC00MWQwLWIzMDYtZjNmMWJkM2ZhZGZmIiwiZXhwIjoxNTQ0MjI1NDAyLCJpZGVudGl0eSI6ImRhbm55MiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.hJIjxY6FL-QAC90ii-OBBgiczariPZ2zedPIKOasGVk"
+    
     //axios.post(loginSend, loginDetails).then(res=>console.log(res)).catch(err=>console.log(err));
     loginFetch();
     
+    //alert(document.cookie);
     
 };
