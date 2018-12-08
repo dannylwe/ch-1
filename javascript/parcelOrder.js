@@ -20,6 +20,7 @@ function parcel(){
        console.log(parcelDetails.height, weight, nickname);
 
        function postAxios(){
+        //document.cookie="access_token_cookie=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDQyNDc4NjgsIm5iZiI6MTU0NDI0Nzg2OCwianRpIjoiNDNiODhiZmEtYjQzYy00NjVmLWEzOTQtODM3NDNjYzE5MDE5IiwiZXhwIjoxNTQ0MjU2NTA4LCJpZGVudGl0eSI6ImRhbm55MSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.0cBvn5ScZZdYxBIkGLC5JuwqcHaddANzrzW1Be42XTs"
         axios.post(postParcel, parcelDetails, {withCredentials: true}).then(res=>console.log(res)).catch(err=>console.log(err));
        }
 
