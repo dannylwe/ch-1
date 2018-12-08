@@ -56,7 +56,11 @@ def post_single_parcel():
 		if not db.query(query_sql_by_user):
 			return jsonify({"error":"unauthorized access"}), 401
 
-		return jsonify({"item info": db.query(query_sql_by_user)}), 200
+		#new change
+		resp = jsonify({"item info": db.query(query_sql_by_user)})
+		resp.headers['Acess-Control-Allow-Credentials'] = True
+		return resp, 200
+		#return jsonify({"item info": db.query(query_sql_by_user)}), 200
 
 @app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
