@@ -34,6 +34,7 @@ function axiosUpdate(){
             <td>${post.parcel_id}</td>
             <td>${post.pickup}</td>
             <td>${post.nickname}</td>
+            <td>${post.status}</td>
             </tr>`
         });
         output += '</div>';

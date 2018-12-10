@@ -20,6 +20,12 @@
         <a class="active" href="cancel.html">Cancel Item</a>
         <a href="destinaton.html">Change Destination</a>
         <a href="#">Logout</a>
-	</div>
+    </div>
+    <div class="cancel-parcel">
+        <input type="text" placeholder="enter parcel_id" id="cancel-id">
+        <input type="button" value="submit" name="c-change" class="button-btn" onclick="return cancelParcel();">
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="javascript/cancel.js"></script>
 </body>
 </html>

@@ -65,7 +65,7 @@ input[type=email]:focus, input[type=password]:focus {
     margin-right: 10px;
 }
 
-.user-dash, #conf-dest, .dest-change {
+.user-dash, #conf-dest, .dest-change, .cancel-parcel {
     margin-top: 50px;
     width: 70%;
     margin-left: auto;
