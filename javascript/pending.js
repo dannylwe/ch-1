@@ -23,16 +23,22 @@ function axiosUpdate(){
     const entry = axios.get("https://challenge3andela.herokuapp.com/api/v1/parcels", 
     {withCredentials: true})
     .then(res=> {
-        //console.log(all); 
+        console.log(res); 
         
         //trying to manipulate the DOM
-        // let output = '<div>';
-        // res.forEach(post => {
-        //     output += `<p>${post.destination}</p>`
-        // });
-        // output += '</div>';
-        // divInput.innerHTML = output;
-        divInput.innerHTML = successfulHTML(res);
+        let output = '<div>';
+        res.data['item info'].forEach(post => {
+            //output += `<p>${post.destination}</p>`
+            output += `<tr>
+            <td>${post.destination}</td>
+            <td>${post.parcel_id}</td>
+            <td>${post.pickup}</td>
+            <td>${post.nickname}</td>
+            </tr>`
+        });
+        output += '</div>';
+        divInput.innerHTML = output;
+        //divInput.innerHTML = successfulHTML(res);
         
     })
     .catch(err=>console.log(err));

@@ -13,12 +13,21 @@
 <body>
     <!-- nav bar -->
 	<div class="topnav">
-        <a class="#Order" href="parcel_order.html">Order</a>
+        <a  href="#Order">Order</a>
         <a href="delivered.html">Delivered</a>
-        <a href="pending.html" href="pending.html">Orders Pending</a>
-        <a href="about.html" href="about.html">Contact Us</a>
+        <a href="pending.html">Orders Pending</a>
+        <a href="about.html">Contact Us</a>
         <a href="cancel.html">Cancel Item</a>
         <a class="active" href="destinaton.html">Change Destination</a>
         <a href="#">Logout</a>
+    </div>
+    <div class="dest-change">
+        <input type="text" placeholder="enter parcel_id" id="n-id">
+        <input type="text" placeholder="enter new destination" id="n-dest">
+        <input type="button" value="submit" name="d-change" class="button-btn" onclick="return changeDest();">
+    </div>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="javascript/destination.js"></script>
 </body>
 </html>
