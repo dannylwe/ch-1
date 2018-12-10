@@ -147,7 +147,7 @@ def get_all_destination():
 	query_sql_by_user_dest = "SELECT * FROM parcel WHERE username = '{}' AND WHERE status = 'delivered' ".format(current_user)
 
 	if not db.query(query_sql_by_user):
-		return jsonify({"error":"unauthorized access"}), 401
+		return jsonify({"error":"unauthorized view access"}), 401
 
 	resp = jsonify({"item info": db.query(query_sql_by_user_dest)})
 	return resp, 200
