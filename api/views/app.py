@@ -56,11 +56,8 @@ def post_single_parcel():
 		if not db.query(query_sql_by_user):
 			return jsonify({"error":"unauthorized access"}), 401
 
-		#new change
 		resp = jsonify({"item info": db.query(query_sql_by_user)})
-		#resp.headers['Acess-Control-Allow-Credentials'] = True
 		return resp, 200
-		#return jsonify({"item info": db.query(query_sql_by_user)}), 200
 
 @app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
@@ -142,3 +139,15 @@ def change_destination_by_user(parcel_id):
 	db.insert(update_dest, (data['destination'], parcel_id))
 
 	return jsonify({"updated destination to": data['destination']}), 201
+
+@app.route(base_url + '/parcels/destination', methods=['GET'])
+@jwt_required
+def get_all_destination():
+	current_user = get_jwt_identity()
+	query_sql_by_user_dest = "SELECT * FROM parcel WHERE username = '{}' AND WHERE status = 'delivered' ".format(current_user)
+
+	if not db.query(query_sql_by_user):
+		return jsonify({"error":"unauthorized access"}), 401
+
+	resp = jsonify({"item info": db.query(query_sql_by_user_dest)})
+	return resp, 200
