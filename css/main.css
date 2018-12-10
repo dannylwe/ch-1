@@ -65,12 +65,25 @@ input[type=email]:focus, input[type=password]:focus {
     margin-right: 10px;
 }
 
-.user-dash, #conf-dest, .dest-change, .cancel-parcel {
+.user-dash, #conf-dest {
     margin-top: 50px;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
     font-family: "Roboto";
+}
+
+.dest-change,  {
+    margin-left: 30%;
+    margin-right: auto;
+    margin-top: 20%;
+    
+}
+
+.cancel-parcel {
+    margin-left: 40%;
+    margin-right: auto;
+    margin-top: 20%;  
 }
 
 .user-dash-intro {
