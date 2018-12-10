@@ -140,7 +140,7 @@ def change_destination_by_user(parcel_id):
 
 	return jsonify({"updated destination to": data['destination']}), 201
 
-@app.route(base_url + '/parcels/destination', methods=['GET'])
+@app.route(base_url + '/parcels/delivered', methods=['GET'])
 @jwt_required
 def get_all_destination():
 	current_user = get_jwt_identity()
