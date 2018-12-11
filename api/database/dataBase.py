@@ -32,7 +32,7 @@ class Database:
 		query_table_create= """CREATE TABLE IF NOT EXISTS users (user_id SERIAL,
  		email VARCHAR(30), password VARCHAR(20), handphone INTEGER, username VARCHAR(16),
  		admin BOOLEAN DEFAULT False, PRIMARY KEY (username)); CREATE TABLE IF NOT EXISTS parcel (parcel_id SERIAL, 
-		nickname VARCHAR(20), pickup VARCHAR(40), destination VARCHAR(40), 
+		nickname VARCHAR(20), pickup VARCHAR(80), destination VARCHAR(80), 
 		weight INTEGER, status VARCHAR(20) DEFAULT 'pending', order_time date, username VARCHAR(20),
  		FOREIGN KEY (username) REFERENCES users (username));"""
 		self.cursor.execute(query_table_create)

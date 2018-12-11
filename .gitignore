@@ -2,3 +2,6 @@ TDD/
 *.pyc
 flask/
 __pycache__
+bash*
+keys*
+.vscode*
