@@ -13,7 +13,7 @@
 <body>
     <!-- nav bar -->
 	<div class="topnav">
-        <a  href="#Order">Order</a>
+        <a  href="parcel_order.html">Order</a>
         <a href="delivered.html">Delivered</a>
         <a href="pending.html">Orders Pending</a>
         <a href="about.html">Contact Us</a>
@@ -24,10 +24,18 @@
     <div class="dest-change">
         <input type="text" placeholder="enter parcel_id" id="n-id">
         <input type="text" placeholder="enter new destination" id="n-dest">
-        <input type="button" value="submit" name="d-change" class="button-btn" onclick="return changeDest();">
+        <input type="button" value="submit" name="d-change" id="btn-dest" class="button-btn" onclick="return changeDest();">
     </div>
     
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="javascript/destination.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.14.0"></script>
+	<!-- <script>
+	var changeDestinationAutocomplete = places({
+		appId: "pl4U7HRPS6JN",
+		apiKey: "2ad9526d1a6b035c0eff624834ec1b38",
+		container: document.getElementById("n-dest")
+	});
+	</script> -->
 </body>
 </html>

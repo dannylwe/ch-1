@@ -74,11 +74,17 @@ input[type=email]:focus, input[type=password]:focus {
 }
 
 .dest-change  {
-    margin-left: 30%;
+    margin-left: 35%;
     margin-right: auto;
     margin-top: 20%;
-    
+    margin-bottom: 10%    
 }
+
+/* #n-dest {
+    width: 20%;
+    font-size: 14px;
+    margin-right: 20px;
+} */
 
 .cancel-parcel {
     margin-left: 40%;

@@ -2,3 +2,4 @@ flask/
 api/*
 bash.*
 keys.txt
+.vscode*
