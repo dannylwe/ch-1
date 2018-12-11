@@ -26,12 +26,13 @@ function axiosUpdate(){
         console.log(res); 
         
         //trying to manipulate the DOM
-        let output = '<div>';
+        let output = '<div>' + 
+        '<th>Parcel Id</th><th>Destination</th><th>Pickup</th><th>Nickname</th><th>Status</th>'
         res.data['item info'].forEach(post => {
             //output += `<p>${post.destination}</p>`
             output += `<tr>
-            <td>${post.destination}</td>
             <td>${post.parcel_id}</td>
+            <td>${post.destination}</td>
             <td>${post.pickup}</td>
             <td>${post.nickname}</td>
             <td>${post.status}</td>
