@@ -24,8 +24,7 @@ class Verify:
 			abort(400, "nickname must be at least 4 characters")
 
 		lower_case = re.compile('[a-z]+')
-		if not lower_case.match(post_parcel['nickname']) or not lower_case.match(post_parcel['destination']) \
-		or not lower_case.match(post_parcel['pickup']):
+		if not lower_case.match(post_parcel['nickname']):
 			abort(400, "nickname can only be in lowercase")
 
 		return
