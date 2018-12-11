@@ -73,7 +73,7 @@ input[type=email]:focus, input[type=password]:focus {
     font-family: "Roboto";
 }
 
-.dest-change,  {
+.dest-change  {
     margin-left: 30%;
     margin-right: auto;
     margin-top: 20%;
