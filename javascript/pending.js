@@ -31,11 +31,12 @@ function axiosUpdate(){
         res.data['item info'].forEach(post => {
             
             output += `<tr>
-            <td>${post.parcel_id}</td>
-            <td>${post.destination}</td>
-            <td>${post.pickup}</td>
-            <td>${post.nickname}</td>
+            <td style = "width: 10%">${post.parcel_id}</td>
+            <td style = "width: 20%">${post.destination}</td>
+            <td style = "width: 22%">${post.pickup}</td>
+            <td style = "width: 15%">${post.nickname}</td>
             <td>${post.status}</td>
+            <td><i class="far fa-times-circle"></i></td>
             </tr>`
         });
         output += '</div>';
