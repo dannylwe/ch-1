@@ -228,6 +228,12 @@ a.button-icons {
     float: left;
 }
 
+.fa-times-circle:hover {
+    color: red;
+    cursor: pointer;
+    font-size: 17px;
+}
+
 /* most mobile devices */
 @media (min-width: 320px) and (max-width: 480px) {
     
