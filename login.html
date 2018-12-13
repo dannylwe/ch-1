@@ -11,11 +11,11 @@
 	</header>
 
 	<div class="login">
-		<form name="logins">
+		<form name="logins" id="login-form-1">
 			<div class="log-email">
-				<label>Email</label>
+				<label>Username</label>
 				<br>
-				<input type="email" name="Email" id="eml" placeholder="please enter password" required>
+				<input type="text" name="Email" id="eml" placeholder="email/username" required>
 			</div>
 			
 			<br>
@@ -30,33 +30,8 @@
 			
 		</form>	
 	</div>
-
-
-	<script>
-
-		function validation() {
-			var Email = document.getElementById("eml").value;
-			var Password = document.getElementById("pass").value;
-
-			if ((Email == "admin@admin.com") && (Password == "admin")) {
-				
-				window.location.href = "loading.html";
-
-			} else if ((Email == "user@user.com") && (Password == "user")) {
-
-				window.location.href = "parcel_order.html";
-
-			} else {
-
-				alert("Incorrect email/password");
-				return false;
-			}
-
-			
-			
-		}
-
-	</script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="javascript/login.js"></script>
 
 </body>
 </html>

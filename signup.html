@@ -14,23 +14,27 @@
 	<div class= "sign-up" id="up-sign">
 		<h1>Sign Up</h1>
 		<p>Sign up to the best parcel delivery in the world</p>	
-		<form action="index.html" class="submission-form">
+		<form class="submission-form">
 			<label>Name</label>
-			<input type="text" name="Name" placeholder="Full names" required>
+			<input type="text" id="Name" placeholder="Full names" required>
 			<br>
 			<label>Email</label>
-			<input type="email" name="Email" placeholder="Enter e-mail" required>
+			<input type="email" id="Email" placeholder="Enter e-mail" required>
 			<br>
 			<label>Password</label>
-			<input type="password" name="psw" placeholder="Enter password" required>
+			<input type="password" id="psw" placeholder="Enter password" required>
 			<br>
 			<label>Confirm Password</label>
-			<input type="password" name="c-pse" placeholder="Confirm Password" required>
+			<input type="password" id="c-psw" placeholder="Confirm Password" required>
 			<br>
-			<label>Date of Birth</label>
-			<input type="date" name="bday">
+			<label>Username</label>
+			<input type="text" id="username" placeholder="username" required>
 			<br>
-			<input type="submit" name="submit-sign-up" value="Submit" class="button-btn" id="btn-signup">
+			<label>handphone</label>
+			<input type="tel" id="handphone" placeholder="phone number" required>
+			<br>
+			<input type="button" id="submit-sign-up" value="Submit" class="button-btn" 
+			id="btn-signup" onclick="send()">
 		</form>
 
 	</div>
@@ -38,6 +42,8 @@
 	<footer>
 		
 	</footer>
+
+	<script src="javascript/signup.js"></script>
 
 
 </body>

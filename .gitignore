@@ -1,2 +1,5 @@
 flask/
-api/
+api/*
+bash.*
+keys.txt
+.vscode*
