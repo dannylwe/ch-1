@@ -32,13 +32,7 @@ def login_user_auth():
 	access_token= create_access_token(identity= user_login['username'], expires_delta=token_expire)
 	refresh_token= create_access_token(identity=user_login['username'], expires_delta=token_expire)
 	resp = jsonify({"message": "Logged in successfully. Welcome to sendIT"})
-	admin_resp = jsonify({"message": "Logged in admin. Welcome to sendIT"})
-
-	set_access_cookies(admin_resp, access_token)
-	set_refresh_cookies(admin_resp, refresh_token)
 	
-	if db.query(query_login)['username'] == 'admin':
-		return admin_resp, 200	
 	set_access_cookies(resp, access_token)
 	set_refresh_cookies(resp, refresh_token)
 
