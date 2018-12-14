@@ -80,4 +80,4 @@ def homepage():
 @blueprint.route(base_url + '/auth/all/users', methods=['GET'])
 def get_all_users():
 	all_users = """SELECT username FROM users;"""
-	return jsonnify("users": db.query(all_users)), 200
+	return jsonnify({"users": db.query(all_users)}), 200
