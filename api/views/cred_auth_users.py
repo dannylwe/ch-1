@@ -77,7 +77,7 @@ def logout_revoke_jwt():
 def homepage():
 	return jsonify({"message":"Welcome to sendIT. Pleasure to be of service"}), 200
 
-@blueprint.route(base_url + '/auth/logout', methods=['GET'])
+@blueprint.route(base_url + '/auth/all/users', methods=['GET'])
 def get_all_users():
 	all_users = """SELECT username FROM users;"""
 	return jsonnify("users": db.query(all_users)), 200
