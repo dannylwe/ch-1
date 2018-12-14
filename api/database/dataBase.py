@@ -32,7 +32,7 @@ class Database:
 		query_table_create= """CREATE TABLE IF NOT EXISTS users (user_id SERIAL,
  		email VARCHAR(30), password VARCHAR(20), handphone INTEGER, username VARCHAR(16),
  		admin BOOLEAN DEFAULT False, PRIMARY KEY (username)); CREATE TABLE IF NOT EXISTS parcel (parcel_id SERIAL, 
-		nickname VARCHAR(20), pickup VARCHAR(80), destination VARCHAR(80), 
+		nickname VARCHAR(20), pickup VARCHAR(80), destination VARCHAR(80), location VARCHAR(80),
 		weight INTEGER, status VARCHAR(20) DEFAULT 'pending', order_time date, username VARCHAR(20),
  		FOREIGN KEY (username) REFERENCES users (username)); INSERT INTO USERS 
 		 (email, password, handphone, username, admin) VALUES ('admin@admin','abcdefgh', 777777777, 'admin', True)
