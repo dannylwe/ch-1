@@ -34,7 +34,9 @@ class Database:
  		admin BOOLEAN DEFAULT False, PRIMARY KEY (username)); CREATE TABLE IF NOT EXISTS parcel (parcel_id SERIAL, 
 		nickname VARCHAR(20), pickup VARCHAR(80), destination VARCHAR(80), 
 		weight INTEGER, status VARCHAR(20) DEFAULT 'pending', order_time date, username VARCHAR(20),
- 		FOREIGN KEY (username) REFERENCES users (username));"""
+ 		FOREIGN KEY (username) REFERENCES users (username)); INSERT INTO USERS 
+		 (email, password, handphone, username, admin) VALUES ('admin@admin','abcdefgh', 777777777, 'admin', True)
+		 ON CONFLICT (username) DO NOTHING;"""
 		self.cursor.execute(query_table_create)
 		self.conn.commit() 
 
