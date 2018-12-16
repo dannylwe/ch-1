@@ -31,7 +31,7 @@ function axiosUpdate(){
             <td style = "width: 22%">${post.pickup}</td>
             <td style = "width: 15%">${post.nickname}</td>
             <td style = "width: 10%">${post.status}</td>
-            <td><i class="fas fa-edit" title="edit destination" id="cancel-sign" onclick=modal();></i></td>
+            <td><i class="fas fa-edit" title="edit destination" id="cancel-sign" onclick=modal(${post.parcel_id});></i></td>
             </tr>`
             }
         });
@@ -57,7 +57,8 @@ function modal(id){
     // When the user clicks the button, open the modal 
     
     modal.style.display = "block";
-    console.log("helping" + id);
+    console.log("helping " + id);
+    console.log(document.getElementById("admin-status-change").value);
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {

@@ -28,7 +28,12 @@
 			<span class="close" id="close-modal">&times;</span>
 			<div class="admin-change">
 				<label>Change status</label>
-				<input type="text" placeholder="Enter status">
+				<select name="status-admin-change" id="admin-status-change">
+					<option value="await delivery">await delivery</option>
+					<option value="await pickup">await pickup</option>
+					<option value="delivered">delivered</option>
+					<option value="in transit">in transit</option>
+				</select>
 			</div>
 			<input type="button" value="submit" id="admin-submit" class="admin-Status-btn">
 			
