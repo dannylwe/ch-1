@@ -162,6 +162,6 @@ def get_all_parcels_admin():
 			return jsonify({"error":"unauthorized access"}), 401
 
 		query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}'".format(current_user)
-
+		
 		resp = jsonify({"item info": db.query(query_sql_by_user)})
 		return resp, 200
