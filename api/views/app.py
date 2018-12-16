@@ -37,13 +37,14 @@ def post_single_parcel():
 	if request.method == 'POST':
 		parcel_info = request.get_json()
 		current_user = get_jwt_identity()
+		time_now = datetime.datetime.now().isoformat()
 
 		Verify.error_handler(parcel_info)
 
 		query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
-		username) VALUES (%s, %s, %s, %s, %s)"""
+		username, order_time) VALUES (%s, %s, %s, %s, %s, %s)"""
 		query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
-		parcel_info['weight'], current_user)
+		parcel_info['weight'], current_user, time_now)
 
 		db.insert(query_sql, query_info)
 
@@ -51,7 +52,7 @@ def post_single_parcel():
 
 	else:
 		current_user = get_jwt_identity()
-		query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}'".format(current_user)
+		query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}' ORDER BY order_time ASC".format(current_user)
 
 		if not db.query(query_sql_by_user):
 			return jsonify({"error":"unauthorized access"}), 401
