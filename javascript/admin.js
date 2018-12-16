@@ -55,7 +55,6 @@ function modal(id){
     var span = document.getElementById("close-modal");
 
     // When the user clicks the button, open the modal 
-    
     modal.style.display = "block";
     console.log("helping " + id);
     console.log(document.getElementById("admin-status-change").value);
@@ -63,6 +62,11 @@ function modal(id){
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
     modal.style.display = "none";
-    }    
+    }
+    var submitButton = document.getElementById("admin-submit");   
+    submitButton.onclick = function() {
+        console.log(id);
+        console.log(document.getElementById("admin-status-change").value);
+    } 
 
 }
