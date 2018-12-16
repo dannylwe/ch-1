@@ -156,10 +156,12 @@ def get_all_destination():
 @jwt_required
 def get_all_parcels_admin():
 	current_user = get_jwt_identity()
-	admin_status = True
-	query_sql_all_parcels_admin = "SELECT * FROM parcel WHERE username = '{}' AND WHERE admin = '{}' ".format(current_user, admin_status)
+		query_sql_by_admin = "SELECT * FROM users WHERE username = '{}' and WHERE admin = True".format(current_user)
 
-	if not db.query(query_sql_all_parcels_admin):
-		return jsonify({"error":"unauthorized view access"}), 401 
+		if not db.query(query_sql_by_admin):
+			return jsonify({"error":"unauthorized access"}), 401
 
-	return jsonify({"parcels": db.query(query_sql_all_parcels_admin)}), 200
+		query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}'".format(current_user)
+
+		resp = jsonify({"item info": db.query(query_sql_by_user)})
+		return resp, 200
