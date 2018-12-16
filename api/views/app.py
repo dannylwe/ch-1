@@ -144,7 +144,7 @@ def change_destination_by_user(parcel_id):
 @jwt_required
 def get_all_destination():
 	current_user = get_jwt_identity()
-	query_sql_by_user_dest = "SELECT * FROM parcel WHERE username = '{}' AND WHERE status = 'delivered' ".format(current_user)
+	query_sql_by_user_dest = "SELECT * FROM parcel WHERE username = '{}' AND status = 'delivered' ".format(current_user)
 
 	if not db.query(query_sql_by_user):
 		return jsonify({"error":"unauthorized view access"}), 401
@@ -156,12 +156,12 @@ def get_all_destination():
 @jwt_required
 def get_all_parcels_admin():
 	current_user = get_jwt_identity()
-	query_sql_by_admin = "SELECT * FROM users WHERE username = '{}' and WHERE admin = True".format(current_user)
+	query_sql_by_admin = "SELECT * FROM users WHERE username = '{}' AND admin = True".format(current_user)
 
 	if not db.query(query_sql_by_admin):
-		return jsonify({"error":"unauthorized access"}), 401
+		return jsonify({"error":"unauthorized access, not admin"}), 401
 
-	query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}'".format(current_user)
+	get_all_parcels = "SELECT * FROM parcel WHERE status != 'cancelled';"
 	
-	resp = jsonify({"item info": db.query(query_sql_by_user)})
+	resp = jsonify({"item info": db.query(get_all_parcels)})
 	return resp, 200
