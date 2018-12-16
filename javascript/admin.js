@@ -56,10 +56,16 @@ function modal(id){
     span.onclick = () => {
     modal.style.display = "none";
     }
+    window.onclick = (event) => {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
     var submitButton = document.getElementById("admin-submit");   
     submitButton.onclick = () => {
         console.log(id);
         console.log(document.getElementById("admin-status-change").value);
     } 
+
 
 }
