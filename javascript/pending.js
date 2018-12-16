@@ -45,7 +45,7 @@ function axiosUpdate(){
             <td style = "width: 22%">${post.pickup}</td>
             <td style = "width: 15%">${post.nickname}</td>
             <td style = "width: 10%">${post.status}</td>
-            <td><i class="fas fa-times-circle" id="cancel-sign" onclick=cancelParcel(${post.parcel_id});></i></td>
+            <td><i class="fas fa-times-circle" title="cancel parcel" id="cancel-sign" onclick=cancelParcel(${post.parcel_id});></i></td>
             </tr>`
             }
         });
