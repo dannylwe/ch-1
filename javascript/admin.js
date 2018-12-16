@@ -45,22 +45,15 @@ function axiosUpdate(){
 
 function modal(id){
     console.log(id);
-    
     var modal = document.getElementById('myModal');
-
-   
     var btn = document.getElementById("cancel-sign");
-
-  
     var span = document.getElementById("close-modal");
 
-    
     modal.style.display = "block";
     console.log("helping " + id);
     console.log(document.getElementById("admin-status-change").value);
 
-    
-    span.onclick = function() {
+    span.onclick = () => {
     modal.style.display = "none";
     }
     var submitButton = document.getElementById("admin-submit");   
