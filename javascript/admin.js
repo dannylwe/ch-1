@@ -45,21 +45,21 @@ function axiosUpdate(){
 
 function modal(id){
     console.log(id);
-    // Get the modal
+    
     var modal = document.getElementById('myModal');
 
-    // Get the button that opens the modal
+   
     var btn = document.getElementById("cancel-sign");
 
-    // Get the <span> element that closes the modal
+  
     var span = document.getElementById("close-modal");
 
-    // When the user clicks the button, open the modal 
+    
     modal.style.display = "block";
     console.log("helping " + id);
     console.log(document.getElementById("admin-status-change").value);
 
-    // When the user clicks on <span> (x), close the modal
+    
     span.onclick = function() {
     modal.style.display = "none";
     }
