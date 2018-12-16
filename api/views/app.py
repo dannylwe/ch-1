@@ -151,3 +151,15 @@ def get_all_destination():
 
 	resp = jsonify({"item info": db.query(query_sql_by_user_dest)})
 	return resp, 200
+
+@app.route(base_url + '/parcels/all', methods=['GET'])
+@jwt_required
+def get_all_parcels_admin():
+	current_user = get_jwt_identity()
+	admin_status = True
+	query_sql_all_parcels_admin = "SELECT * FROM parcel WHERE username = '{}' AND WHERE admin = '{}' ".format(current_user, admin_status)
+
+	if not db.query(query_sql_all_parcels_admin):
+		return jsonify({"error":"unauthorized view access"}), 401 
+
+	return jsonify({"parcels": db.query(query_sql_all_parcels_admin)}), 200
