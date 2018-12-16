@@ -234,6 +234,11 @@ a.button-icons {
     font-size: 17px;
 }
 
+.fa-edit:hover {
+    color: green;
+    cursor: pointer;
+    font-size: 17px;
+}
 /* most mobile devices */
 @media (min-width: 320px) and (max-width: 480px) {
     

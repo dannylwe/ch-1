@@ -1,31 +1,17 @@
 window.addEventListener("load", e =>{
-    //updateParcel();
     axiosUpdate();
 });
 
-// async function updateParcel(){
-//     console.log("starting");
-//     const res = await fetch("https://challenge3andela.herokuapp.com/api/v1/parcels", 
-//     {credentials: 'include'})
-//     .then(rel=>console.log(rel.json()))
-//     .catch(err=>console.log(err));
-//     const result = res.json();
-//     // place.innerText = result;
-// }
-
-
-const tablePending = document.getElementById("f-api");
-const divInput = document.getElementById("api-table");
-//tablePending.innerHTML = '';
+const divInput = document.getElementById("admin-Table");
 divInput.innerHTML = '';
 
 function axiosUpdate(){
-    const entry = axios.get("https://challenge3andela.herokuapp.com/api/v1/parcels", 
+    console.log("beginning fetch from source")
+    const entry = axios.get("https://challenge3andela.herokuapp.com/api/v1/parcels/all", 
     {withCredentials: true})
     .then(res=> {
         console.log(res); 
         
-        //trying to manipulate the DOM
         let output = '<div>' + 
         '<th>Parcel Id</th><th>Destination</th><th>Pickup</th><th>Nickname</th><th>Status</th>'
         res.data['item info'].forEach(post => {
@@ -36,7 +22,7 @@ function axiosUpdate(){
                 <td style = "width: 22%">${post.pickup}</td>
                 <td style = "width: 15%">${post.nickname}</td>
                 <td style = "width: 10%">${post.status}</td>
-                <td><i class="fas fa-times-circle" id="cancel-sign" style="display:none;"></i></td>    
+                <td><i class="fas fa-edit" id="cancel-sign" style="display:none;" title="edit destination"></i></td>    
                 </tr>`
             }else{
             output += `<tr>
@@ -45,7 +31,7 @@ function axiosUpdate(){
             <td style = "width: 22%">${post.pickup}</td>
             <td style = "width: 15%">${post.nickname}</td>
             <td style = "width: 10%">${post.status}</td>
-            <td><i class="fas fa-times-circle" id="cancel-sign" onclick=cancelParcel(${post.parcel_id});></i></td>
+            <td><i class="fas fa-edit" title="edit destination" id="cancel-sign" onclick=cancelParcel(${post.parcel_id});></i></td>
             </tr>`
             }
         });
@@ -56,19 +42,3 @@ function axiosUpdate(){
     })
     .catch(err=>console.log(err));
 }
-
-function successfulHTML(res){
-
-    return '<pre>' + JSON.stringify(res.data['item info'], null, '\t') + '</pre>'; 
-    
-};
-
-function cancelParcel(id){
-
-    const entry = "https://challenge3andela.herokuapp.com/api/v1/parcels/"+id+"/cancel";
-    axios.put(entry, id, {withCredentials: true}).then(res=>{
-        console.log("item of id "+ id + " has been deleted");
-        window.location.href = "pending.html"
-    })
-}
-
