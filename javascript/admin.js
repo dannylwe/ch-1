@@ -64,7 +64,7 @@ function modal(id){
     modal.style.display = "none";
     }
     var submitButton = document.getElementById("admin-submit");   
-    submitButton.onclick = function() {
+    submitButton.onclick = () => {
         console.log(id);
         console.log(document.getElementById("admin-status-change").value);
     } 
