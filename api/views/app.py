@@ -110,13 +110,11 @@ def refresh_token():
 def parcel_status(parcel_id):
 	data = request.get_json()
 
-	current_admin= get_jwt_identity()
+	current_user = get_jwt_identity()
+	query_sql_by_admin = "SELECT * FROM users WHERE username = '{}' AND admin = True".format(current_user)
 
-	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_admin, parcel_id)
-	if not db.query(get_by_user):
-		return jsonify({"error":"unauthorized access"}), 401
-
-	get_by_admin = "SELECT * from parcel WHERE username = '{}' and admin = True".format(current_admin)
+	if not db.query(query_sql_by_admin):
+		return jsonify({"error":"unauthorized access, not admin"}), 401
 
 	update_status= "UPDATE parcel set status = %s where parcel_id = %s "
 
