@@ -26,9 +26,12 @@ function validation() {
         }).then(res => res.json())
         .then(response => {if (response.message == "Logged in successfully. Welcome to sendIT"){
             console.log(response);
-            window.location.replace("parcel_order.html")
+            window.location.replace("parcel_order.html");
+        } else if (response.message == "Logged in as admin. Dashboard"){
+            console.log(response);
+            window.location.replace("admin.html");
         } else if (response.error == "invalid credentials"){
-            alert(response.error)
+            alert("invalid credentials, try again");
         }}).catch(err => console.log(err));
         
     };
