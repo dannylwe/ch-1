@@ -64,7 +64,20 @@ function modal(id){
     var submitButton = document.getElementById("admin-submit");   
     submitButton.onclick = () => {
         console.log(id);
-        console.log(document.getElementById("admin-status-change").value);
+        var status = document.getElementById("admin-status-change").value;
+        console.log(status);
+        const url = "https://challenge3andela.herokuapp.com/api/v1/parcels/"+ id +"/status"
+        statusDetails = {
+            "status": status
+        }
+
+        function runUpadate(){
+            axios.put(url, status, {withCredentials: true})
+            .then(res=>console.log(res)).catch(err=>console.log(err));
+        }
+
+        runUpadate()
+        
     } 
 
 
