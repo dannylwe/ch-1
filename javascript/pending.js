@@ -27,7 +27,7 @@ function axiosUpdate(){
         
         //trying to manipulate the DOM
         let output = '<div>' + 
-        '<th>Parcel Id</th><th>Destination</th><th>Pickup</th><th>Nickname</th><th>Status</th>'
+        '<th>Parcel Id</th><th>Destination</th><th>Pickup</th><th>Nickname</th><th>Status</th><th>Actions</th>'
         res.data['item info'].forEach(post => {
             if(post.status==='cancelled'){
                 output += `<tr>

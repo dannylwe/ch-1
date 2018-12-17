@@ -111,9 +111,10 @@ input[type=email]:focus, input[type=password]:focus {
 
 .admin-Status-btn{
     background-color: rgb(245, 111, 22);
-    padding: 7px;
+    padding: 10px;
     margin-left: 80%;
-    border-radius: 3px;
+    border-radius: 5px;
+
 }
 
 .submit-log, .btm-confirm, #btn-signup {
