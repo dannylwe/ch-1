@@ -2,3 +2,4 @@ TDD/
 *.pyc
 flask/
 __pycache__
+htmlcov/
