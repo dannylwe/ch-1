@@ -3,11 +3,11 @@ from flask_cors import CORS
 from werkzeug.contrib.fixers import ProxyFix
 import datetime
 #import uuid
-from models.parcel_store import *
-from database.dataBase import Database
+from api.models.parcel_store import *
+from api.database.dataBase import Database
 
 app = Flask(__name__)
-cors = CORS(app)
+CORS(app)
 
 app.config['DEBUG'] = True
 
