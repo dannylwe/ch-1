@@ -1,3 +1,4 @@
+from flask import Flask, request
 from flask_cors import CORS
 from werkzeug.contrib.fixers import ProxyFix
 #import uuid
