@@ -70,29 +70,26 @@ def get_from_user(user_id):
 @app.route(base_url + '/parcels/<int:id>/cancel', methods=['PUT'])
 def cancel_order(id):
 
-	post_parcel = request.get_json()
-
-	error_handler(post_parcel)
-
 	for parcel in parcels:
 		if parcel['id'] == id:
 			parcel['status'] = "cancelled"
 			return jsonify({"cancelled": parcel}), 201
 	return jsonify({"message": "Id does not exist"}), 200
 
+# not required for challenge 2
 
-@app.route(base_url + '/register', methods=['POST'])
-def register_user():
+# @app.route(base_url + '/register', methods=['POST'])
+# def register_user():
 
-	user_info = request.get_json()
-	db = Database()
+# 	user_info = request.get_json()
+# 	db = Database()
 
-	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
-	%s, %s, %s)"""
+# 	query_sql = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
+# 	%s, %s, %s)"""
 
-	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
-	 user_info['username'])
+# 	query_info = (user_info['email'], user_info['password'], user_info['handphone'],
+# 	 user_info['username'])
 
-	db.insert(query_sql, query_info)
+# 	db.insert(query_sql, query_info)
 
-	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200
+# 	return jsonify({"Register message": "Succesfully registerd to sendIT"}), 200

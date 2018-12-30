@@ -72,10 +72,52 @@ class Test(TestCase):
 			content_type="application/json")
 		self.assertEqual(response.status_code, 201)
 
+	def test_parcels_success_get(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 9, "pickup":"kampala","nickname": "dental floss","weight": 5,"destination": "gulu"}),
+			content_type="application/json")
+
+		with response:
+			response2 = self.app.get('/api/v1/parcels/100')
+			self.assertEqual(response2.status_code, 200)
+
+	def test_parcels_success_get_all(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 9, "pickup":"kampala","nickname": "dental floss","weight": 5,"destination": "gulu"}),
+			content_type="application/json")
+
+		with response:
+			response2 = self.app.get('/api/v1/parcels')
+			self.assertEqual(response2.status_code, 200)
+
 	def test_parcels_int(self):
-		response = self.app.get('/api/v1/parcels/1')
+		response = self.app.get('/api/v1/parcels/100')
 		self.assertEqual(response.status_code, 200)
 
 	def test_parcels_by_user(self):
-		response = self.app.get('/users/1/parcels')
+		response = self.app.get('/api/v1/users/1/parcels')
 		self.assertEqual(response.status_code, 404)
+
+	def test_parcels_success_get_user(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 9, "pickup":"kampala","nickname": "dental floss","weight": 5,"destination": "gulu"}),
+			content_type="application/json")
+
+		with response:
+			response2 = self.app.get('/api/v1/users/1/parcels')
+			self.assertEqual(response2.status_code, 200)
+
+	def test_parcels_success_cancel(self):
+		response = self.app.post('/api/v1/parcels', 
+			data = 
+			json.dumps({"height": 9, "pickup":"kampala","nickname": "dental floss","weight": 5,"destination": "gulu"}),
+			content_type="application/json")
+
+		with response:
+			response2 = self.app.put('/api/v1/parcels/1/cancel')
+			response3 = self.app.put('/api/v1/parcels/100/cancel')
+			self.assertEqual(response2.status_code, 200)
+			self.assertEqual(response3.status_code, 201)

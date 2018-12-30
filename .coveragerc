@@ -1,4 +1,4 @@
 [report]
 omit = run.py
-	   api/views/app.py
+	   api/database/dataBase.py
 	   */__init__.py
