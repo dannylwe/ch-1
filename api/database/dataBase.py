@@ -1,24 +1,5 @@
 import psycopg2
 
-# conn = psycopg2.connect(host="localhost",database="admin", user="admin", password="admin")
-
-# cur = conn.cursor()
-
-# #cur.execute("CREATE TABLE test(id serial PRIMARY KEY, name varchar, email varchar)")
-# cur.execute("SELECT * FROM playground;")
-# items = cur.fetchall()
-
-# for item in items:
-# 	print(item)
-
-# # print(items)
-
-# conn.commit()
-# cur.close()
-# conn.close()
-
-#create a setup function to create tables and run them in run.py
-
 class Database:
 
 	host = 'localhost'
@@ -58,38 +39,3 @@ class Database:
 		self.cursor.execute(query_update, query_data)
 		self.conn.commit()
 		return print("updated table")
-
-
-
-
-	# def __delete__(self):
-	# 	self.conn.commit()
-	# 	self.cursor.close()
-	# 	self.conn.close()
-		
-
-# if __name__ == '__main__':
-
-# 	db = Database()
-# 	query = "SELECT * FROM playground;"
-# 	#db.query(query)
-
-# 	instance_database = """CREATE TABLE IF NOT EXISTS USERS (user_id SERIAL PRIMARY KEY,
-# 	 email VARCHAR(20), password VARCHAR(20), handphone INTEGER, username VARCHAR(16));"""
-
-# 	# get_one = """SELECT * FROM playground LIMIT 1;"""
-# 	# print(db.query_one(get_one))
-# 	query_2 = """INSERT INTO USERS (email, password, handphone, username) VALUES (%s,
-# 	%s, %s, %s)"""
-# 	query_2_insert = ('danny@gmail.com', 'ggg', 1224, 'gghfh')
-
-# 	query_update = """UPDATE USERS set email = %s, password = %s""" 
-# 	query_data = ('hello@gmail.com', '123password')
-
-# 	for item in db.query(query):
-# 		print(item)
-
-# 	db.create_table(instance_database)
-# 	db.insert(query_2, query_2_insert)
-# 	db.update_table(query_update, query_data)
-
