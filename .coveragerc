@@ -1,4 +1,4 @@
 [report]
 omit = run.py
 	   api/models/parcel_store.py
-	   api/views/app.py
+	   *__init__.py
