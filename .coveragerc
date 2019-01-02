@@ -4,4 +4,5 @@ omit = run.py
 		api/validation/*
 		api/views/*
 		api/database/*
+		api/controller/*
 	 

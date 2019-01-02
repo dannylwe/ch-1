@@ -3,7 +3,6 @@ from flask_cors import CORS, cross_origin
 import datetime
 from api.models.parcel_store import *
 from api.database.dataBase import Database
-from flask import Flask, jsonify, request
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
 	jwt_refresh_token_required, create_refresh_token,
     get_jwt_identity, set_access_cookies,
@@ -11,6 +10,7 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
 from api.validation.parcel_validation import Verify
 from api.validation.user_auth import Auth_user
 from api.views import cred_auth_users
+from api.controller.parcelController import Parcels
 
 app = Flask(__name__)
 db = Database()
@@ -34,133 +34,53 @@ base_url= '/api/v1'
 @app.route(base_url + '/parcels', methods=['POST', 'GET'])
 @jwt_required
 def post_single_parcel():
+	"""post single parcel"""
 	if request.method == 'POST':
-		parcel_info = request.get_json()
-		current_user = get_jwt_identity()
-		time_now = datetime.datetime.now().isoformat()
-
-		Verify.error_handler(parcel_info)
-
-		query_sql = """INSERT INTO parcel (nickname, pickup, destination, weight, 
-		username, order_time) VALUES (%s, %s, %s, %s, %s, %s)"""
-		query_info = (parcel_info['nickname'], parcel_info['pickup'], parcel_info['destination'],
-		parcel_info['weight'], current_user, time_now)
-
-		db.insert(query_sql, query_info)
-
-		return jsonify({"added parcel": parcel_info['nickname']}), 201
+		return Parcels.postSingleParcel()
 
 	else:
-		current_user = get_jwt_identity()
-		query_sql_by_user = "SELECT * FROM parcel WHERE username = '{}' ORDER BY order_time ASC".format(current_user)
-
-		if not db.query(query_sql_by_user):
-			return jsonify({"error":"unauthorized access"}), 401
-
-		resp = jsonify({"item info": db.query(query_sql_by_user)})
-		return resp, 200
+	"""get parcels belonging to single user by Id"""
+		return Parcels.getParcelsByUser()
 
 @app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
 def gets_single_parcel_by_id(parcel_id):
-
-	current_user= get_jwt_identity()
-
-	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}' " \
-	.format(current_user, parcel_id)
-	if not db.query(get_by_user):
-		return jsonify({"error":"unauthorized access"}), 401
-
-	return jsonify({"item info": db.query(get_by_user)}), 200
-
+	"""get single parcel by Id"""
+	return Parcels.getParcelById(parcel_id)
 
 @app.route(base_url + '/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
 def cancel_order(parcel_id):
-
-	current_user= get_jwt_identity()
-
-	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}' " \
-	.format(current_user, parcel_id)
-	if not db.query(get_by_user):
-		return jsonify({"error":"unauthorized access"}), 401
-
-	get_by_user = "SELECT * from parcel WHERE username = '{}' and admin = False".format(current_user)
-
-	update_status= "UPDATE parcel set status = %s where parcel_id = %s "
-
-	db.insert(update_status, ("cancelled", parcel_id))
-
-	return jsonify({"cancelled item id: ": parcel_id}), 201
+	"""cancel a single parcel by Id"""
+	return Parcels.cancelById(parcel_id)
 
 @app.route(base_url + '/token/refresh', methods=['GET'])
 @jwt_refresh_token_required
 def refresh_token():
-    
-    current_user = get_jwt_identity()
-    access_token = create_access_token(identity=current_user)
-
-
-    resp = jsonify({'message': 'Refreshed access token. You can now continue using sendIT'})
-    set_access_cookies(resp, access_token)
-    return resp, 200
-
+	"""refresh token upon expiry"""
+	return Parcels.refreshToken()
+  
 @app.route(base_url + '/parcels/<int:parcel_id>/status', methods=['PUT'])
 @jwt_required
 def parcel_status(parcel_id):
-	data = request.get_json()
-
-	current_user = get_jwt_identity()
-	query_sql_by_admin = "SELECT * FROM users WHERE username = '{}' AND admin = True".format(current_user)
-
-	if not db.query(query_sql_by_admin):
-		return jsonify({"error":"unauthorized access, not admin"}), 401
-
-	update_status= "UPDATE parcel set status = %s where parcel_id = %s "
-
-	db.insert(update_status, (data['status'], parcel_id))
-
-	return jsonify({"status of parcel": data['status']}), 201
+	"""admin update the status of parcel"""
+	return Parcels.adminStatusUpdate(parcel_id)
+	
 
 @app.route(base_url + '/parcels/<int:parcel_id>/destination', methods=['PUT'])
 @jwt_required
 def change_destination_by_user(parcel_id):
-
-	data = request.get_json()
-
-	current_user= get_jwt_identity()
-
-	get_by_user= "SELECT * from parcel WHERE username = '{}' and parcel_id= '{}'".format(current_user, parcel_id)
-	if not db.query(get_by_user):
-		return jsonify({"error":"unauthorized access"}), 401
-
-	update_dest= "UPDATE parcel set destination = %s where parcel_id = %s "
-	db.insert(update_dest, (data['destination'], parcel_id))
-
-	return jsonify({"updated destination to": data['destination']}), 201
+	"""user changes destination of parcel"""
+	return Parcels.changeDestination(parcel_id)
 
 @app.route(base_url + '/parcels/delivered', methods=['GET'])
 @jwt_required
 def get_all_destination():
-	current_user = get_jwt_identity()
-	query_sql_by_user_dest = "SELECT * FROM parcel WHERE username = '{}' AND status = 'delivered' ".format(current_user)
-
-	if not db.query(query_sql_by_user):
-		return jsonify({"error":"unauthorized view access"}), 401
-
-	resp = jsonify({"item info": db.query(query_sql_by_user_dest)})
-	return resp, 200
+	"""get delivered items for user"""
+	return Parcels.getDelivered()
 
 @app.route(base_url + '/parcels/all', methods=['GET'])
 @jwt_required
 def get_all_parcels_admin():
-	current_user = get_jwt_identity()
-	query_sql_by_admin = "SELECT * FROM users WHERE username = '{}' AND admin = True".format(current_user)
-
-	if not db.query(query_sql_by_admin):
-		return jsonify({"error":"unauthorized access, not admin"}), 401
-
-	get_all_parcels = "SELECT * FROM parcel WHERE status != 'cancelled';"
-	
-	resp = jsonify({"item info": db.query(get_all_parcels)})
-	return resp, 200
+	"""admin has view of all parcels"""
+	return Parcels.adminAllParcels()
