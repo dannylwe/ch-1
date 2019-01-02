@@ -39,7 +39,7 @@ def post_single_parcel():
 		return Parcels.postSingleParcel()
 
 	else:
-	"""get parcels belonging to single user by Id"""
+		"""get parcels belonging to single user by Id"""
 		return Parcels.getParcelsByUser()
 
 @app.route(base_url + '/parcels/<int:parcel_id>', methods=['GET'])
