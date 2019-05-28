@@ -48,6 +48,9 @@ Note:The application uses python 3.5.2. Have python3 installed on your system to
 OR you can visit the link below to try it out.
 Hosted on: https://challenge3andela.herokuapp.com/api/v1
 
+#Postman Collection
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/dfc9a865af0f47919ca2)
+
 # Author
 
 Daniel Lwetabe
